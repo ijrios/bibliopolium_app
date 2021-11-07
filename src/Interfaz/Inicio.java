@@ -146,7 +146,7 @@ public class Inicio extends javax.swing.JFrame {
                 int x = Tabla.getSelectedRow(); 
                 if (x <0) { 
                     try {
-                           Libro b = GestionDatos.getlibro(x);
+                        Libro b = GestionDatos.getlibro(x);
                         jTextArea2.setText(b.getTitulo());
                         String im = b.getImagen().toString();
                         ImageIcon ii = new ImageIcon(System.getProperty("user.dir") + "/ImagenLibro/" + im);
@@ -391,6 +391,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel75 = new javax.swing.JLabel();
         jSeparator21 = new javax.swing.JSeparator();
         jPanel9 = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         Tabla3 = new javax.swing.JTable();
         jProgressBar1 = new javax.swing.JProgressBar();
@@ -1562,21 +1563,38 @@ public class Inicio extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(Tabla3);
 
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(55, Short.MAX_VALUE))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(49, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 746, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addGap(46, 46, 46)
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(175, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap(75, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90))
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         Top10.getContentPane().add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 960, 580));
@@ -2566,7 +2584,7 @@ public class Inicio extends javax.swing.JFrame {
         Top10.setSize(1126, 580);
         Top10.setLocationRelativeTo(null);
         String[][] reseñas = GestionDatos.SumarReseña();
-
+        
         try {
             Tabla3.setModel(new javax.swing.table.DefaultTableModel(
                     reseñas,
@@ -2847,6 +2865,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
