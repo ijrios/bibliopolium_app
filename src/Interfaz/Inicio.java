@@ -1875,7 +1875,6 @@ public class Inicio extends javax.swing.JFrame {
         jtextreseña.setText("");
         jtextpaginas.setText("");
         img.setText("");
-        //            jdate.setDateFormatString("");
         jedicion.setModel(cmodel2);
         jtextisbn.setText("");
         jencuadernacion.setModel(cmodel3);
