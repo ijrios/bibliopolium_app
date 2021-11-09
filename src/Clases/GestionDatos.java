@@ -45,7 +45,8 @@ public class GestionDatos {
     private static ArrayList<Reseña> critica = new ArrayList<Reseña>();
     private static ArrayList<Usuario> users = new ArrayList<Usuario>();
     private static ArrayList<Libro> b = new ArrayList<Libro>();
-    private static  Map <Long, Integer> map = new HashMap <Long, Integer>();
+    private static Map <Long, Integer> map = new HashMap <Long, Integer>();
+    private static Map <Long, Integer> map1 = new HashMap <Long, Integer>();
     private static int numLibros = 0;
     private static int usuario = 0;
     private static int numadmin = 0;
@@ -74,12 +75,12 @@ public class GestionDatos {
     }
     
     // CALCULAR EL TOP 10
-    public static String[][] SumarReseña() {
+    public static Map<Long,Integer> SumarReseña() {
         
         int sum = 0;
         int rating = 0;
         long idbook = 0;
-        String[][] reseña = new String[book.size()][3];
+//        String[][] reseña = new String[book.size()][3];
         String[] reseñas = null;
         
         for (int i = 0; i < book.size(); i++) {
@@ -88,7 +89,7 @@ public class GestionDatos {
             for (int j = 0; j < critica.size(); j++) {
                 if (book.get(i).getIdlibro() == critica.get(j).getIdlibro()) {
                
-                    idbook = book.get(i).getIdlibro();
+                    idbook = book.get(j).getIdlibro();
                     rating = critica.get(j).getCalificación();
                     sum += rating;
                     ratingFound = true;
@@ -104,20 +105,24 @@ public class GestionDatos {
                                 .compareTo(((Map.Entry<Long, Integer>) o1).getValue());
                     }
                 });
-                for (Object e : a) {
-                   
-                    reseña[i][0] = Long.toString(((Map.Entry<Long, Integer>) e).getKey());
-                    reseña[i][1] = String.valueOf(book.get(i).getTitulo());
-                    reseña[i][2] = Long.toString(((Map.Entry<Long, Integer>) e).getValue());
-                    
-                    System.out.println(((Map.Entry<Long, Integer>) e).getKey() + " : "
-                            + ((Map.Entry<Long, Integer>) e).getValue());
-                    
-                } 
+//                for (Object e : a) {
+//                   
+//                     map1.put(((Map.Entry<Long, Integer>) e).getKey(), ((Map.Entry<Long, Integer>) e).getValue());
+////                    reseña[i][0] = Long.toString(((Map.Entry<Long, Integer>) e).getKey());
+////                    reseña[i][1] = String.valueOf(book.get(i).getTitulo());
+////                    reseña[i][2] = Long.toString(((Map.Entry<Long, Integer>) e).getValue());
+//                    
+////                    System.out.println(((Map.Entry<Long, Integer>) e).getKey() + " : "
+////                            + ((Map.Entry<Long, Integer>) e).getValue());
+//                    
+//                    
+//                }
+//                
             }
+            
         }
       
-        return reseña;
+        return map;
          
     }
     

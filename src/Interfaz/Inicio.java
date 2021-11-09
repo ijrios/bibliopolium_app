@@ -2497,19 +2497,32 @@ public class Inicio extends javax.swing.JFrame {
         Reseñas.setVisible(true);
         Reseñas.setSize(1126, 580);
         Reseñas.setLocationRelativeTo(null);
-        String[][] reseñas = GestionDatos.SumarReseña();
-       
+        Map<Long,Integer> reseñas = GestionDatos.SumarReseña();
+//        String[][] reseñas = GestionDatos.SumarReseña();
         
 //        DefaultTableModel model=(DefaultTableModel)jTable1.getModel();
 //        for (int i = jTable1.getRowCount() - 1; i >= 0; i--) {
 //            model.removeRow(i);
 //        }
-        
+        Object[][] data = new Object[reseñas.size()][2];
+        int i =0;
+       
+            for (Map.Entry<Long, Integer> entry : reseñas.entrySet()) {
+
+                data[i][0] = entry.getKey();
+                data[i][1] = entry.getValue();
+                Arrays.sort(data);
+                i++;
+           
+        }
+            
+
+
         try {
             Tabla2.setModel(new javax.swing.table.DefaultTableModel(
-                    reseñas,
+                    data,
                     new String[]{
-                        "ID Libro", "Titulo", "Calificación Total"
+                        "ID Libro", "Calificación Total"
 
                     }
             ));
@@ -2607,23 +2620,23 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-         String[][] reseñas = GestionDatos.SumarReseña();
-        
-        try {
-            
-            Tabla2.setModel(new javax.swing.table.DefaultTableModel(
-                    reseñas,
-                    new String[]{
-                        "ID Libro", "Titulo", "Calificación Total"
-
-                    }
-            ));
-            
-
-        } catch (ArrayIndexOutOfBoundsException e) {
-
-            System.out.println("Error al mostrar");
-        }
+//         String[][] reseñas = GestionDatos.SumarReseña();
+//        
+//        try {
+//            
+//            Tabla2.setModel(new javax.swing.table.DefaultTableModel(
+//                    reseñas,
+//                    new String[]{
+//                        "ID Libro", "Titulo", "Calificación Total"
+//
+//                    }
+//            ));
+//            
+//
+//        } catch (ArrayIndexOutOfBoundsException e) {
+//
+//            System.out.println("Error al mostrar");
+//        }
 
     }//GEN-LAST:event_jButton9ActionPerformed
 
