@@ -37,6 +37,7 @@ public class GestionDatos {
     private static final String FILENAME2 = "administrador.txt";
     private static final String FILENAME3 = "cliente.txt";
     private static final String FILENAME4 = "reseñas.txt";
+    private static final String FILENAME5 = "libro.txt";
     private static ArrayList<Libro> book = new ArrayList<Libro>();
     private static ArrayList<Cliente> cliente = new ArrayList<Cliente>();
     private static ArrayList<Administrador> admi = new ArrayList<Administrador>();
@@ -79,6 +80,8 @@ public class GestionDatos {
         int rating = 0;
         long idbook = 0;
         String[][] reseña = new String[book.size()][3];
+        String[] reseñas = null;
+        
         for (int i = 0; i < book.size(); i++) {
             boolean ratingFound = false;
             sum = 0;
@@ -102,14 +105,18 @@ public class GestionDatos {
                     }
                 });
                 for (Object e : a) {
+                   
                     reseña[i][0] = Long.toString(((Map.Entry<Long, Integer>) e).getKey());
                     reseña[i][1] = String.valueOf(book.get(i).getTitulo());
                     reseña[i][2] = Long.toString(((Map.Entry<Long, Integer>) e).getValue());
-//                    System.out.println(((Map.Entry<Long, Integer>) e).getKey() + " : "
-//                            + ((Map.Entry<Long, Integer>) e).getValue());
+                    
+                    System.out.println(((Map.Entry<Long, Integer>) e).getKey() + " : "
+                            + ((Map.Entry<Long, Integer>) e).getValue());
+                    
                 } 
             }
         }
+      
         return reseña;
          
     }
@@ -972,6 +979,83 @@ public class GestionDatos {
         return true;
 
     }
+    public static boolean guardar4() {
+
+        FileWriter writer = null;
+        try {
+            File f = new File(FILENAME5);
+            writer = new FileWriter(f);
+            BufferedWriter buffw = new BufferedWriter(writer);
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < book.size(); i++) {
+                Libro lib = book.get(i);
+                if (lib != null) {
+                    sb.append("{");
+                    sb.append("'titulo:'");
+                    sb.append("'").append(book.get(i).getTitulo()).append("'");
+                    sb.append(",");
+                    sb.append("'descripcion:'");
+                    sb.append("'").append(book.get(i).getSinapsis()).append("'");
+                    sb.append(",");
+                    sb.append("'img:'");
+                    sb.append("'").append(book.get(i).getImagen()).append("'");
+                    sb.append(",");
+                    sb.append("'formato:'");
+                    sb.append("'").append(book.get(i).getFormato()).append("'");
+                    sb.append(",");
+                    sb.append("'autor:'");
+                    sb.append("'").append(book.get(i).getAutor()).append("'");
+                    sb.append(",");
+                    sb.append("'editorial:'");
+                    sb.append("'").append(book.get(i).getEditorial()).append("'");
+                    sb.append(",");
+                    sb.append("'categoría:'");
+                    sb.append("'").append(book.get(i).getCategoria()).append("'");
+                    sb.append(",");
+                    sb.append("'precio:'");
+                    sb.append("'").append(book.get(i).getPrecio()).append("'");
+                    sb.append(",");
+                    sb.append("'año:'");
+                    sb.append("'").append(book.get(i).getFecha()).append("'");
+                    sb.append(",");
+                    sb.append("'idioma:'");
+                    sb.append("'").append(book.get(i).getIdioma()).append("'");
+                    sb.append(",");
+                    sb.append("'N° paginas:'");
+                    sb.append("'").append(book.get(i).getPaginas()).append("'");
+                    sb.append(",");
+                    sb.append("'encuadernacion:'");
+                    sb.append("'").append(book.get(i).getEncuadernacion()).append("'");
+                    sb.append(",");
+                    sb.append("'isbn:'");
+                    sb.append("'").append(book.get(i).getIsbn()).append("'");
+                    sb.append(",");
+                    sb.append("'isbn13:'");
+                    sb.append("'").append(book.get(i).getIdlibro()).append("'");
+                    sb.append(",");
+                    sb.append("'edicion:'");
+                    sb.append("'").append(book.get(i).getEdicion()).append("'");
+                    sb.append("}");
+                    buffw.write(sb.toString());
+                    sb.setLength(0);
+                    
+                }
+            }
+            buffw.close();
+            writer.close();
+        } catch (IOException ex) {
+            return false;
+        }
+        return true;
+
+    }
+    
+//                String[] datos = registro.replaceFirst("^\\{", "").split("}\\{|}$");
+//                //recontruir el objeto
+//                for (String dato : datos) {
+//
+//                    String[] elems = dato.replaceFirst("^'", "").split("'?[:,] '|'$");
 
     /*
     Crea una matriz a partir de los datos almacenados
