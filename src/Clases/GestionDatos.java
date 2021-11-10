@@ -80,9 +80,7 @@ public class GestionDatos {
         int sum = 0;
         int rating = 0;
         long idbook = 0;
-//        String[][] reseña = new String[book.size()][3];
-        String[] reseñas = null;
-        
+//        
         for (int i = 0; i < book.size(); i++) {
             boolean ratingFound = false;
             sum = 0;
@@ -96,37 +94,13 @@ public class GestionDatos {
                 }
             }
             if (ratingFound) { // Or:  if (sum>0) 
-                 
                  map.put(idbook, sum);
-                 Object[] a = map.entrySet().toArray();
-                Arrays.sort(a, new Comparator() {
-                    public int compare(Object o1, Object o2) {
-                        return ((Map.Entry<Long, Integer>) o2).getValue()
-                                .compareTo(((Map.Entry<Long, Integer>) o1).getValue());
-                    }
-                });
-//                for (Object e : a) {
-//                   
-//                     map1.put(((Map.Entry<Long, Integer>) e).getKey(), ((Map.Entry<Long, Integer>) e).getValue());
-////                    reseña[i][0] = Long.toString(((Map.Entry<Long, Integer>) e).getKey());
-////                    reseña[i][1] = String.valueOf(book.get(i).getTitulo());
-////                    reseña[i][2] = Long.toString(((Map.Entry<Long, Integer>) e).getValue());
-//                    
-////                    System.out.println(((Map.Entry<Long, Integer>) e).getKey() + " : "
-////                            + ((Map.Entry<Long, Integer>) e).getValue());
-//                    
-//                    
-//                }
-//                
             }
-            
         }
-      
         return map;
          
     }
     
- 
     public static boolean cargarlibros() {
         File f = new File(FILENAME);
         FileReader reader;
@@ -997,49 +971,49 @@ public class GestionDatos {
                 Libro lib = book.get(i);
                 if (lib != null) {
                     sb.append("{");
-                    sb.append("'titulo:'");
-                    sb.append("'").append(book.get(i).getTitulo()).append("'");
+                    sb.append("'titulo':");
+                    StringBuilder append = sb.append("'"+(book.get(i).getTitulo())+"'");
                     sb.append(",");
-                    sb.append("'descripcion:'");
+                    sb.append("'descripcion':");
                     sb.append("'").append(book.get(i).getSinapsis()).append("'");
                     sb.append(",");
-                    sb.append("'img:'");
+                    sb.append("'img':");
                     sb.append("'").append(book.get(i).getImagen()).append("'");
                     sb.append(",");
-                    sb.append("'formato:'");
-                    sb.append("'").append(book.get(i).getFormato()).append("'");
+                    sb.append("'Formato':");
+                    sb.append("''").append(book.get(i).getFormato());
                     sb.append(",");
-                    sb.append("'autor:'");
+                    sb.append("'Autor':");
                     sb.append("'").append(book.get(i).getAutor()).append("'");
                     sb.append(",");
-                    sb.append("'editorial:'");
+                    sb.append("'Editorial':");
                     sb.append("'").append(book.get(i).getEditorial()).append("'");
                     sb.append(",");
-                    sb.append("'categoría:'");
+                    sb.append("'Categoría':");
                     sb.append("'").append(book.get(i).getCategoria()).append("'");
                     sb.append(",");
-                    sb.append("'precio:'");
+                    sb.append("'Tema':");
                     sb.append("'").append(book.get(i).getPrecio()).append("'");
                     sb.append(",");
-                    sb.append("'año:'");
+                    sb.append("'Año':");
                     sb.append("'").append(book.get(i).getFecha()).append("'");
                     sb.append(",");
-                    sb.append("'idioma:'");
+                    sb.append("'Idioma':");
                     sb.append("'").append(book.get(i).getIdioma()).append("'");
                     sb.append(",");
-                    sb.append("'N° paginas:'");
+                    sb.append("'N° páginas':");
                     sb.append("'").append(book.get(i).getPaginas()).append("'");
                     sb.append(",");
-                    sb.append("'encuadernacion:'");
+                    sb.append("'Encuadernación':");
                     sb.append("'").append(book.get(i).getEncuadernacion()).append("'");
                     sb.append(",");
-                    sb.append("'isbn:'");
+                    sb.append("'Isbn':");
                     sb.append("'").append(book.get(i).getIsbn()).append("'");
                     sb.append(",");
-                    sb.append("'isbn13:'");
+                    sb.append("'Isbn13':");
                     sb.append("'").append(book.get(i).getIdlibro()).append("'");
                     sb.append(",");
-                    sb.append("'edicion:'");
+                    sb.append("'N° edición':");
                     sb.append("'").append(book.get(i).getEdicion()).append("'");
                     sb.append("}");
                     buffw.write(sb.toString());
@@ -1056,12 +1030,6 @@ public class GestionDatos {
 
     }
     
-//                String[] datos = registro.replaceFirst("^\\{", "").split("}\\{|}$");
-//                //recontruir el objeto
-//                for (String dato : datos) {
-//
-//                    String[] elems = dato.replaceFirst("^'", "").split("'?[:,] '|'$");
-
     /*
     Crea una matriz a partir de los datos almacenados
      */
@@ -1301,7 +1269,7 @@ public class GestionDatos {
 
     }
 
-    public static Libro BuscarLibro(int id) {
+    public static Libro BuscarLibro(long id) {
         Libro libro = null;
         for (int j = 0; j < book.size(); j++) {
 

@@ -9,7 +9,7 @@ package Clases;
  *
  * @author jario
  */
-public class Reseña {
+public class Reseña implements Comparable<Reseña> {
     
     private int idreseña;
     private int idusuario;
@@ -64,6 +64,13 @@ public class Reseña {
     public void setCalificación(int calificación) {
         this.calificación = calificación;
     }
+
+    @Override
+    public int compareTo(Reseña o) {
+        return this.calificación - o.calificación;
+    }
+
+    
 
         
 }

@@ -55,6 +55,7 @@ public class Libro {
        
     }
 
+   
     public long getIdlibro() {
         return idlibro;
     }

@@ -27,6 +27,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -1446,7 +1447,7 @@ public class Inicio extends javax.swing.JFrame {
         });
         jPanel8.add(idlibro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 150, 180, -1));
 
-        jButton7.setText("Mostrar");
+        jButton7.setText("Reseñas");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
@@ -2085,7 +2086,7 @@ public class Inicio extends javax.swing.JFrame {
                 usu7.setText(nombre);
                 idusuario.setText(String.valueOf(id));
                 break;
-                }else if (lista.get(i)instanceof Cliente && aux ==1) {
+                }else if (lista.get(i)instanceof Cliente) {
                 int id = lista.get(i).getId();
                 String nombre = lista.get(i).getNombre();
                 JOptionPane.showMessageDialog(null, "Usuario Existente, Bienvenido " + nombre);
@@ -2498,32 +2499,26 @@ public class Inicio extends javax.swing.JFrame {
         Reseñas.setSize(1126, 580);
         Reseñas.setLocationRelativeTo(null);
         Map<Long,Integer> reseñas = GestionDatos.SumarReseña();
-//        String[][] reseñas = GestionDatos.SumarReseña();
-        
-//        DefaultTableModel model=(DefaultTableModel)jTable1.getModel();
-//        for (int i = jTable1.getRowCount() - 1; i >= 0; i--) {
-//            model.removeRow(i);
-//        }
         Object[][] data = new Object[reseñas.size()][2];
-        int i =0;
-       
-            for (Map.Entry<Long, Integer> entry : reseñas.entrySet()) {
-
-                data[i][0] = entry.getKey();
-                data[i][1] = entry.getValue();
-                Arrays.sort(data);
-                i++;
-           
-        }
-            
-
-
+        
+         Object[] a = reseñas.entrySet().toArray();
+                Arrays.sort(a, new Comparator() {
+                    public int compare(Object o1, Object o2) {
+                        return ((Map.Entry<Long, Integer>) o2).getValue()
+                                .compareTo(((Map.Entry<Long, Integer>) o1).getValue());
+                    }
+                });
+                int i =0;
+                for (Object e : a) {
+                    data[i][0] = ((Map.Entry<Long, Integer>) e).getKey();
+                    data[i][1] = ((Map.Entry<Long, Integer>) e).getValue();
+                    i++;
+                }
         try {
             Tabla2.setModel(new javax.swing.table.DefaultTableModel(
                     data,
                     new String[]{
                         "ID Libro", "Calificación Total"
-
                     }
             ));
 
@@ -2620,24 +2615,37 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-//         String[][] reseñas = GestionDatos.SumarReseña();
-//        
-//        try {
-//            
-//            Tabla2.setModel(new javax.swing.table.DefaultTableModel(
-//                    reseñas,
-//                    new String[]{
-//                        "ID Libro", "Titulo", "Calificación Total"
-//
-//                    }
-//            ));
-//            
-//
-//        } catch (ArrayIndexOutOfBoundsException e) {
-//
-//            System.out.println("Error al mostrar");
-//        }
+        Map<Long,Integer> reseñas = GestionDatos.SumarReseña();
+        Object[][] data = new Object[reseñas.size()][2];
+        
+         Object[] a = reseñas.entrySet().toArray();
+                Arrays.sort(a, new Comparator() {
+                    public int compare(Object o1, Object o2) {
+                        return ((Map.Entry<Long, Integer>) o2).getValue()
+                                .compareTo(((Map.Entry<Long, Integer>) o1).getValue());
+                    }
+                });
+                int i =0;
+                for (Object e : a) {
+                    data[i][0] = ((Map.Entry<Long, Integer>) e).getKey();
+                    data[i][1] = ((Map.Entry<Long, Integer>) e).getValue();
+                    i++;
+                }
+        try {
+            Tabla2.setModel(new javax.swing.table.DefaultTableModel(
+                    data,
+                    new String[]{
+                        "ID Libro", "Calificación Total"
+                    }
+            ));
 
+        } catch (ArrayIndexOutOfBoundsException e) {
+
+            System.out.println("Error al mostrar");
+            
+        }
+        
+        
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void Tabla3FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Tabla3FocusGained
