@@ -43,6 +43,7 @@ public class GestionDatos {
     private static ArrayList<Administrador> admi = new ArrayList<Administrador>();
     private static ArrayList<Sesión> sesionlist = new ArrayList<Sesión>();
     private static ArrayList<Reseña> critica = new ArrayList<Reseña>();
+    private static ArrayList<Reserva> reserva = new ArrayList<Reserva>();
     private static ArrayList<Usuario> users = new ArrayList<Usuario>();
     private static ArrayList<Libro> b = new ArrayList<Libro>();
     private static ArrayList<String> datos = new ArrayList<String>();
@@ -53,6 +54,7 @@ public class GestionDatos {
     private static int numadmin = 0;
     private static int numcliente = 0;
     private static int numsesion = 0;
+    private static int numreserva = 0;
 
     private static long validaLong(String number) {
         float result = 0; //Valor default.
@@ -97,7 +99,6 @@ public class GestionDatos {
                 }
             }
             if (ratingFound) { // Or:  if (sum>0) 
-                
                  map.put(idbook, sum);
             }
         }
@@ -1094,6 +1095,12 @@ public class GestionDatos {
         sesionlist.get(index).setFechafin(fechafin);
         
     }
+    
+     public static void finreserva(int index, String fechafin) {
+
+        reserva.get(index).setFechafin(fechafin);
+        
+    }
 
     public static String[][] UsuarioaAdmin() {
         String[][] admin = new String[admi.size()][4];
@@ -1191,6 +1198,15 @@ public class GestionDatos {
         return sesion;
     }
 
+     public static Reserva reservar(int idusuario, long idlibro, String fechainicio, String fechafin) {
+
+        Reserva r = new Reserva(idusuario, idlibro, fechainicio, fechafin);
+        reserva.add(r);
+        numreserva++;
+
+        return r;
+    }
+    
     public static Reseña reseña(int idreseña, int idusuario, long idlibro, String descri, int puntaje) {
 
         Reseña reseña = new Reseña(idreseña, idusuario, idlibro, descri, puntaje);

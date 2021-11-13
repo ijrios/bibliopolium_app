@@ -213,6 +213,8 @@ public class Inicio extends javax.swing.JFrame {
         isbn3 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        isbn5 = new javax.swing.JLabel();
+        jButton10 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         LibrosIn = new javax.swing.JDialog();
         Ingreso2 = new javax.swing.JPanel();
@@ -559,17 +561,28 @@ public class Inicio extends javax.swing.JFrame {
         isbn3.setForeground(new java.awt.Color(102, 102, 102));
         isbn3.setText("Top 10");
 
-        jButton6.setText("Review");
+        jButton6.setText("review");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Buscar");
+        jButton4.setText("find");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
+            }
+        });
+
+        isbn5.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        isbn5.setForeground(new java.awt.Color(102, 102, 102));
+        isbn5.setText("Reservar");
+
+        jButton10.setText("go");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
             }
         });
 
@@ -578,19 +591,26 @@ public class Inicio extends javax.swing.JFrame {
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(57, 57, 57)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jButton6))
-                    .addComponent(isbn4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                        .addGap(23, 23, 23)
+                        .addComponent(isbn4))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jButton6)))
+                .addGap(26, 26, 26)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(isbn3)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(isbn5)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(isbn3))
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(65, 65, 65))
+                        .addComponent(jButton10)))
+                .addGap(38, 38, 38))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -598,15 +618,17 @@ public class Inicio extends javax.swing.JFrame {
                 .addGap(7, 7, 7)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(isbn4, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(isbn3))
+                    .addComponent(isbn3)
+                    .addComponent(isbn5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton10))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 480, 380, 80));
+        jPanel2.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 480, 400, 80));
 
         jButton8.setText("Reset");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -2599,8 +2621,6 @@ public class Inicio extends javax.swing.JFrame {
         Map<Long,Integer> reseñas = GestionDatos.SumarReseña();
         Object[][] data = new Object[reseñas.size()][2];
         
-        
-        
          Object[] a = reseñas.entrySet().toArray();
                 Arrays.sort(a, new Comparator() {
                     public int compare(Object o1, Object o2) {
@@ -2676,19 +2696,40 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        int x = Tabla.getSelectedRow();
-        //necesito obtener los datos
-        if (x != -1) {
-            Libro b = GestionDatos.getlibro(x);
-            long id = b.getIdlibro();
-            idlibro1.setText(String.valueOf(id));
-            Reseñas.setVisible(true);
-            Reseñas.setSize(1126, 580);
-            Reseñas.setLocationRelativeTo(null);
-            idreseña.setText(String.valueOf(AleatorioIDreseña()));
-            idreseña.setEnabled(false);
-            idusuario.setEnabled(false);
-        }
+     
+                int x = Tabla.getSelectedRow(); 
+                if (x <0) { 
+                    try {
+                        Libro b = GestionDatos.getlibro(x);
+                        long id = b.getIdlibro();
+                        idlibro1.setText(String.valueOf(id));
+                        Reseñas.setVisible(true);
+                        Reseñas.setSize(1126, 580);
+                        Reseñas.setLocationRelativeTo(null);
+                        idreseña.setText(String.valueOf(AleatorioIDreseña()));
+                        idreseña.setEnabled(false);
+                        idusuario.setEnabled(false);
+                    } catch (Exception e) {
+                    }
+                    
+                } else { 
+                    try {
+                        int y = Tabla.convertRowIndexToModel(x);
+                        Libro b = GestionDatos.getlibro(y);
+                        long id = b.getIdlibro();
+                        idlibro1.setText(String.valueOf(id));
+                        Reseñas.setVisible(true);
+                        Reseñas.setSize(1126, 580);
+                        Reseñas.setLocationRelativeTo(null);
+                        idreseña.setText(String.valueOf(AleatorioIDreseña()));
+                        idreseña.setEnabled(false);
+                        idusuario.setEnabled(false);
+
+                    } catch (Exception e) {
+                    }
+                    
+                } 
+             
     }//GEN-LAST:event_jButton6ActionPerformed
 
     
@@ -2805,6 +2846,40 @@ public class Inicio extends javax.swing.JFrame {
         Reseñas1.dispose();;
     }//GEN-LAST:event_jLabel76MouseClicked
 
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+          int x = Tabla.getSelectedRow(); 
+          DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+          String fecha = dtf.format(LocalDateTime.now());
+                if (x <0) { 
+                    try {
+                        Libro b = GestionDatos.getlibro(x);
+                        long id = b.getIdlibro();
+                        int idusu = ConvertIntoNumeric(jLabel29.getText());
+                        GestionDatos.reservar(idusu, id, fecha,"dd-MM-yyyy");
+                        JOptionPane.showMessageDialog(rootPane, "Reserva exitosa");
+                        
+                    } catch (Exception e) {
+                    }
+                    
+                } else { 
+                    try {
+                        int y = Tabla.convertRowIndexToModel(x);
+                        Libro b = GestionDatos.getlibro(y);
+                        long id = b.getIdlibro();
+                        int idusu = ConvertIntoNumeric(jLabel29.getText());
+                        GestionDatos.reservar(idusu, id, fecha,"dd-MM-yyyy");
+                        JOptionPane.showMessageDialog(rootPane, "Reserva exitosa");
+                        
+                    } catch (Exception e) {
+                    }
+                    
+                } 
+             
+        
+        
+    }//GEN-LAST:event_jButton10ActionPerformed
+
    
  
   
@@ -2907,7 +2982,9 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel isbn2;
     private javax.swing.JLabel isbn3;
     private javax.swing.JLabel isbn4;
+    private javax.swing.JLabel isbn5;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
