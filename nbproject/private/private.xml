@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2">
+        <file>
+            <url>src/Interfaz/Inicio.java</url>
+            <bookmark id="2">
+                <name/>
+                <line>2501</line>
+                <key/>
+            </bookmark>
+            <bookmark id="1">
+                <name/>
+                <line>2528</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/jario/Documents/UDEM/Programación%20II%20(2021)/Librería_v2/src/Clases/Libro.java</file>
             <file>file:/C:/Users/jario/Documents/UDEM/Programación%20II%20(2021)/Librería_v2/src/Interfaz/Inicio.java</file>
-            <file>file:/C:/Users/jario/Documents/UDEM/Programación%20II%20(2021)/Librería_v2/src/Clases/Reseña.java</file>
             <file>file:/C:/Users/jario/Documents/UDEM/Programación%20II%20(2021)/Librería_v2/src/Clases/GestionDatos.java</file>
         </group>
     </open-files>

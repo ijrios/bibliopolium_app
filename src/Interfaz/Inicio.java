@@ -74,6 +74,7 @@ public class Inicio extends javax.swing.JFrame {
     private DefaultTableModel tmodel; // Libros
     private DefaultTableModel tmodel1; // Usuarios
     private DefaultTableModel tmodel2; //Reseñas
+    private DefaultTableModel tmodel3; //top10
     private String[] nomcolusuarios = {"Nombre", "ID", "Correo", "Celular"};
     private String[] tops1 = {"Id libro", "Titulo", "Califación Total"};
     private String[] nomcolreseña = {"ID Reseña", "ID Usuario", "ID Libro", "Descripción","Calificación"};
@@ -97,9 +98,11 @@ public class Inicio extends javax.swing.JFrame {
         tmodel = new DefaultTableModel();
         tmodel1 = new DefaultTableModel();
         tmodel2 = new DefaultTableModel();
+        tmodel3 = new DefaultTableModel();
         Tabla.setModel(tmodel);
         Tabla1.setModel(tmodel1);
         Tabla2.setModel(tmodel2);
+        Tabla4.setModel(tmodel3);
         s = new GestionDatos();
         //Se desactivan los botones para no permitir acceso
         ja.setVisible(false);
@@ -171,6 +174,8 @@ public class Inicio extends javax.swing.JFrame {
 
         } 
 );
+        
+        
   }
 
     /**
@@ -371,8 +376,9 @@ public class Inicio extends javax.swing.JFrame {
         idlibro1 = new javax.swing.JTextField();
         jButton7 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        Tabla3 = new javax.swing.JTable();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        title = new javax.swing.JTextArea();
+        jLabel12 = new javax.swing.JLabel();
         Ingreso7 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         usu7 = new javax.swing.JTextField();
@@ -383,6 +389,21 @@ public class Inicio extends javax.swing.JFrame {
         jLabel72 = new javax.swing.JLabel();
         jSeparator19 = new javax.swing.JSeparator();
         jProgressBar1 = new javax.swing.JProgressBar();
+        Reseñas1 = new javax.swing.JDialog();
+        jPanel9 = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        Tabla4 = new javax.swing.JTable();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        title1 = new javax.swing.JTextArea();
+        label12 = new javax.swing.JLabel();
+        Ingreso8 = new javax.swing.JPanel();
+        jLabel74 = new javax.swing.JLabel();
+        usu8 = new javax.swing.JTextField();
+        jLabel75 = new javax.swing.JLabel();
+        jLabel76 = new javax.swing.JLabel();
+        jLabel77 = new javax.swing.JLabel();
+        jSeparator20 = new javax.swing.JSeparator();
+        jSeparator21 = new javax.swing.JSeparator();
         Ingreso = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -521,14 +542,14 @@ public class Inicio extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane3.setViewportView(jTextArea1);
 
-        jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 330, 380, 50));
+        jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 330, 400, 50));
         jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(65, 254, 288, 310));
 
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
         jScrollPane4.setViewportView(jTextArea2);
 
-        jPanel2.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 260, 380, 50));
+        jPanel2.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 260, 400, 50));
 
         isbn4.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         isbn4.setForeground(new java.awt.Color(102, 102, 102));
@@ -557,21 +578,19 @@ public class Inicio extends javax.swing.JFrame {
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(57, 57, 57)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
+                        .addGap(12, 12, 12)
                         .addComponent(jButton6))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(isbn4)))
+                    .addComponent(isbn4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
+                        .addGap(10, 10, 10)
                         .addComponent(isbn3))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(65, 65, 65))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -587,7 +606,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 480, 260, 80));
+        jPanel2.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 480, 380, 80));
 
         jButton8.setText("Reset");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -769,19 +788,19 @@ public class Inicio extends javax.swing.JFrame {
         paginas1.setText("Ingrese ID para eliminar");
         jPanel3.add(paginas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 450, -1, -1));
 
-        jButton5.setText("Insertar");
+        jButton5.setText("Add");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 470, -1, -1));
+        jPanel3.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 430, -1, -1));
 
         encuadernacion2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         encuadernacion2.setForeground(new java.awt.Color(102, 102, 102));
         encuadernacion2.setText("Encuadernación");
         jPanel3.add(encuadernacion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 372, -1, -1));
-        jPanel3.add(img, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 430, 180, -1));
+        jPanel3.add(img, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 430, 110, -1));
 
         LibrosIn.getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, 890, 580));
 
@@ -1433,6 +1452,11 @@ public class Inicio extends javax.swing.JFrame {
                 Tabla2FocusGained(evt);
             }
         });
+        Tabla2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tabla2MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(Tabla2);
 
         jPanel8.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, 740, 200));
@@ -1453,7 +1477,7 @@ public class Inicio extends javax.swing.JFrame {
                 jButton7ActionPerformed(evt);
             }
         });
-        jPanel8.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 530, -1, -1));
+        jPanel8.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 530, -1, -1));
 
         jButton9.setText("Top 10");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
@@ -1461,27 +1485,17 @@ public class Inicio extends javax.swing.JFrame {
                 jButton9ActionPerformed(evt);
             }
         });
-        jPanel8.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 530, -1, -1));
+        jPanel8.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 530, -1, -1));
 
-        Tabla3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        Tabla3.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                Tabla3FocusGained(evt);
-            }
-        });
-        jScrollPane2.setViewportView(Tabla3);
+        title.setColumns(20);
+        title.setRows(5);
+        jScrollPane5.setViewportView(title);
 
-        jPanel8.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, 740, 100));
+        jPanel8.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 520, 500, 50));
+
+        jLabel12.setFont(new java.awt.Font("Georgia", 2, 16)); // NOI18N
+        jLabel12.setText("Para obtener el id del libro que desea calificar puede seleccionarlo en la pestaña \"Visualizar Libro\"");
+        jPanel8.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 590, 720, -1));
 
         Reseñas.getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 870, 640));
 
@@ -1523,6 +1537,77 @@ public class Inicio extends javax.swing.JFrame {
         Ingreso7.add(jSeparator19, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 270, 20));
 
         Reseñas.getContentPane().add(Ingreso7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 640));
+
+        Reseñas1.setUndecorated(true);
+        Reseñas1.setResizable(false);
+        Reseñas1.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Tabla4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        Tabla4.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                Tabla4FocusGained(evt);
+            }
+        });
+        Tabla4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tabla4MouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(Tabla4);
+
+        jPanel9.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 400, 330));
+
+        title1.setColumns(20);
+        title1.setRows(5);
+        jScrollPane8.setViewportView(title1);
+
+        jPanel9.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 180, 360, 60));
+        jPanel9.add(label12, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 250, 270, 250));
+
+        Reseñas1.getContentPane().add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 870, 640));
+
+        Ingreso8.setBackground(new java.awt.Color(255, 255, 255));
+        Ingreso8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        Ingreso8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel74.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/libros (1) - copia.png"))); // NOI18N
+        Ingreso8.add(jLabel74, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 210, 201));
+
+        usu8.setForeground(new java.awt.Color(153, 153, 153));
+        usu8.setBorder(null);
+        Ingreso8.add(usu8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 350, 156, 36));
+
+        jLabel75.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/login (3).png"))); // NOI18N
+        Ingreso8.add(jLabel75, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 40, -1));
+
+        jLabel76.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/batras.png"))); // NOI18N
+        jLabel76.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel76MouseClicked(evt);
+            }
+        });
+        Ingreso8.add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 440, 120, 90));
+
+        jLabel77.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icons8_Menu_32px_1.png"))); // NOI18N
+        jLabel77.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Ingreso8.add(jLabel77, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 40));
+        Ingreso8.add(jSeparator20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 270, 20));
+        Ingreso8.add(jSeparator21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 270, 20));
+
+        Reseñas1.getContentPane().add(Ingreso8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 640));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -1944,8 +2029,13 @@ public class Inicio extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         int idd = ConvertIntoNumeric(jTextField4.getText());
-        GestionDatos.EliminarLibro(idd);
-
+        String aux =jTextField4.getText();
+        if (aux.equals("")) {
+             JOptionPane.showMessageDialog(rootPane, "Ingrese un id válido par eliminar libro");
+        }else{
+            GestionDatos.EliminarLibro(idd);
+        }
+        
     }//GEN-LAST:event_jLabel36MouseClicked
 
     private void jtextid1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtextid1KeyTyped
@@ -2298,7 +2388,7 @@ public class Inicio extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         Libro libro;
-        int id = ConvertIntoNumeric(jtextid1.getText());
+        long id = Long.valueOf(jtextid1.getText());
         libro = GestionDatos.BuscarLibro(id);
        //Mandamos datos a modificar
         jtexttitulo1.setText(libro.getTitulo());
@@ -2313,10 +2403,17 @@ public class Inicio extends javax.swing.JFrame {
         jtextreseña1.setText(libro.getSinapsis());
         jtextpaginas1.setText(String.valueOf(libro.getPaginas()));
         SimpleDateFormat dFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat dFormat1 = new SimpleDateFormat("yyyy");
         String fecha2 = libro.getFecha();
         try {
+            if (fecha2.contains("-")) {
             Date fecha = dFormat.parse(fecha2);
             jdate1.setDate(fecha);
+            }else{
+            Date fecha1 = dFormat1.parse(fecha2);
+            jdate1.setDate(fecha1);
+            }
+            
         } catch (ParseException ex) {
             Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -2495,11 +2592,14 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        Reseñas.setVisible(true);
-        Reseñas.setSize(1126, 580);
-        Reseñas.setLocationRelativeTo(null);
+
+        Reseñas1.setVisible(true);
+        Reseñas1.setSize(1126, 580);
+        Reseñas1.setLocationRelativeTo(null);
         Map<Long,Integer> reseñas = GestionDatos.SumarReseña();
         Object[][] data = new Object[reseñas.size()][2];
+        
+        
         
          Object[] a = reseñas.entrySet().toArray();
                 Arrays.sort(a, new Comparator() {
@@ -2514,8 +2614,10 @@ public class Inicio extends javax.swing.JFrame {
                     data[i][1] = ((Map.Entry<Long, Integer>) e).getValue();
                     i++;
                 }
+              
+        
         try {
-            Tabla2.setModel(new javax.swing.table.DefaultTableModel(
+            Tabla4.setModel(new javax.swing.table.DefaultTableModel(
                     data,
                     new String[]{
                         "ID Libro", "Calificación Total"
@@ -2524,7 +2626,8 @@ public class Inicio extends javax.swing.JFrame {
 
         } catch (ArrayIndexOutOfBoundsException e) {
 
-            System.out.println("Error al mostrar");
+            
+            JOptionPane.showMessageDialog(rootPane, "Error al mostrar");
             
         }
         
@@ -2615,6 +2718,9 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
+        Reseñas1.setVisible(true);
+        Reseñas1.setSize(1126, 580);
+        Reseñas1.setLocationRelativeTo(null);
         Map<Long,Integer> reseñas = GestionDatos.SumarReseña();
         Object[][] data = new Object[reseñas.size()][2];
         
@@ -2632,7 +2738,7 @@ public class Inicio extends javax.swing.JFrame {
                     i++;
                 }
         try {
-            Tabla2.setModel(new javax.swing.table.DefaultTableModel(
+            Tabla4.setModel(new javax.swing.table.DefaultTableModel(
                     data,
                     new String[]{
                         "ID Libro", "Calificación Total"
@@ -2641,16 +2747,63 @@ public class Inicio extends javax.swing.JFrame {
 
         } catch (ArrayIndexOutOfBoundsException e) {
 
-            System.out.println("Error al mostrar");
-            
+            JOptionPane.showMessageDialog(rootPane, "Error al mostrar");
         }
-        
         
     }//GEN-LAST:event_jButton9ActionPerformed
 
-    private void Tabla3FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Tabla3FocusGained
+    private void Tabla2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla2MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_Tabla3FocusGained
+        
+        DefaultTableModel modelo = (DefaultTableModel) Tabla2.getModel();
+        Libro libro;
+         if (Tabla2.getSelectedRow() != -1) {
+            String codigo =  (String) modelo.getValueAt(Tabla2.getSelectedRow(), 2);
+            libro = GestionDatos.BuscarLibro(Long.valueOf(codigo));
+            // Lo imprimimos en pantalla
+//             System.out.println(codigo);
+             title.setText(libro.getTitulo());
+//               String im = libro.getImagen().toString();
+//               ImageIcon ii = new ImageIcon(System.getProperty("user.dir") + "/ImagenLibro/" + im);
+//               label12.setIcon(ii);
+                 
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Seleccione un renglon primero");
+        }
+    
+    }//GEN-LAST:event_Tabla2MouseClicked
+
+    private void Tabla4FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Tabla4FocusGained
+        // TODO add your handling code here:
+          tmodel3.fireTableDataChanged();
+    }//GEN-LAST:event_Tabla4FocusGained
+
+    private void Tabla4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla4MouseClicked
+        // TODO add your handling code here:
+            
+        DefaultTableModel modelo = (DefaultTableModel) Tabla4.getModel();
+        Libro libro;
+         if (Tabla4.getSelectedRow() != -1) {
+            long codigo = (long) modelo.getValueAt(Tabla4.getSelectedRow(), 0);
+            libro = GestionDatos.BuscarLibro(codigo);
+
+//            // Lo imprimimos en pantalla
+//             System.out.println(libro.getTitulo());
+               title1.setText(libro.getTitulo());
+               String im = libro.getImagen().toString();
+               ImageIcon ii = new ImageIcon(System.getProperty("user.dir") + "/ImagenLibro/" + im);
+               label12.setIcon(ii);
+                 
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Seleccione un renglon primero");
+        }
+    
+    }//GEN-LAST:event_Tabla4MouseClicked
+
+    private void jLabel76MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel76MouseClicked
+        // TODO add your handling code here:
+        Reseñas1.dispose();;
+    }//GEN-LAST:event_jLabel76MouseClicked
 
    
  
@@ -2704,14 +2857,16 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPanel Ingreso5;
     private javax.swing.JPanel Ingreso6;
     private javax.swing.JPanel Ingreso7;
+    private javax.swing.JPanel Ingreso8;
     private javax.swing.JDialog LibrosIn;
     private javax.swing.JDialog LibrosOut;
     private javax.swing.JDialog LibrosUp;
     private javax.swing.JDialog Reseñas;
+    private javax.swing.JDialog Reseñas1;
     private javax.swing.JTable Tabla;
     private javax.swing.JTable Tabla1;
     private javax.swing.JTable Tabla2;
-    private javax.swing.JTable Tabla3;
+    private javax.swing.JTable Tabla4;
     private javax.swing.JLabel bienvenido;
     private javax.swing.JTextField busqueda1;
     private javax.swing.JLabel categoria;
@@ -2765,6 +2920,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -2827,6 +2983,10 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel70;
     private javax.swing.JLabel jLabel71;
     private javax.swing.JLabel jLabel72;
+    private javax.swing.JLabel jLabel74;
+    private javax.swing.JLabel jLabel75;
+    private javax.swing.JLabel jLabel76;
+    private javax.swing.JLabel jLabel77;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -2838,6 +2998,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JPasswordField jPasswordField3;
@@ -2845,9 +3006,11 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane12;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
@@ -2859,6 +3022,8 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator18;
     private javax.swing.JSeparator jSeparator19;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator20;
+    private javax.swing.JSeparator jSeparator21;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
@@ -2910,6 +3075,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel ju;
     private javax.swing.JLabel ju2;
     private javax.swing.JLabel ju3;
+    private javax.swing.JLabel label12;
     private javax.swing.JTextField name;
     private javax.swing.JTextField name1;
     private javax.swing.JLabel paginas;
@@ -2920,6 +3086,8 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> puntaje;
     private javax.swing.JLabel reseña;
     private javax.swing.JLabel reseña1;
+    private javax.swing.JTextArea title;
+    private javax.swing.JTextArea title1;
     private javax.swing.JLabel titulo;
     private javax.swing.JLabel titulo1;
     private javax.swing.JLabel titulo2;
@@ -2935,5 +3103,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JTextField usu5;
     private javax.swing.JTextField usu6;
     private javax.swing.JTextField usu7;
+    private javax.swing.JTextField usu8;
     // End of variables declaration//GEN-END:variables
 }

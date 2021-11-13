@@ -70,6 +70,11 @@ public class Reseña implements Comparable<Reseña> {
         return this.calificación - o.calificación;
     }
 
+    @Override
+    public String toString() {
+        return "idreseña=" + idreseña + ", idusuario=" + idusuario + ", idlibro=" + idlibro + ", descripcion=" + descripcion + ", calificaci\u00f3n=" + calificación + '}';
+    }
+
     
 
         

@@ -45,8 +45,9 @@ public class GestionDatos {
     private static ArrayList<Reseña> critica = new ArrayList<Reseña>();
     private static ArrayList<Usuario> users = new ArrayList<Usuario>();
     private static ArrayList<Libro> b = new ArrayList<Libro>();
+    private static ArrayList<String> datos = new ArrayList<String>();
     private static Map <Long, Integer> map = new HashMap <Long, Integer>();
-    private static Map <Long, Integer> map1 = new HashMap <Long, Integer>();
+    private static Map <String, Integer> map1 = new HashMap <String, Integer>();
     private static int numLibros = 0;
     private static int usuario = 0;
     private static int numadmin = 0;
@@ -80,6 +81,7 @@ public class GestionDatos {
         int sum = 0;
         int rating = 0;
         long idbook = 0;
+        String titulo = null;
 //        
         for (int i = 0; i < book.size(); i++) {
             boolean ratingFound = false;
@@ -87,18 +89,35 @@ public class GestionDatos {
             for (int j = 0; j < critica.size(); j++) {
                 if (book.get(i).getIdlibro() == critica.get(j).getIdlibro()) {
                
-                    idbook = book.get(j).getIdlibro();
+                    idbook = book.get(i).getIdlibro();
+                    titulo = book.get(i).getTitulo();
                     rating = critica.get(j).getCalificación();
                     sum += rating;
                     ratingFound = true;
                 }
             }
             if (ratingFound) { // Or:  if (sum>0) 
+                
                  map.put(idbook, sum);
             }
         }
         return map;
          
+    }
+    
+    public static Libro getlibro(int index){
+        return book.get(index);
+    }
+    
+     public static Reseña getreseña(int index){
+        return critica.get(index);
+    }
+     
+    public static String palabraEliminar(String oracion, String palabra) {
+        if (oracion.contains(palabra)) {
+            return oracion.replaceAll(palabra, "");
+        }
+        return oracion;
     }
     
     public static boolean cargarlibros() {
@@ -769,15 +788,7 @@ public class GestionDatos {
         return true;
     }
     
-     public static Libro getlibro(int index){
-        return book.get(index);
-    }
-    public static String palabraEliminar(String oracion, String palabra) {
-        if (oracion.contains(palabra)) {
-            return oracion.replaceAll(palabra, "");
-        }
-        return oracion;
-    }
+   
     
     public static boolean cargaradministrador() {
         File f = new File(FILENAME2);
@@ -970,6 +981,7 @@ public class GestionDatos {
             for (int i = 0; i < book.size(); i++) {
                 Libro lib = book.get(i);
                 if (lib != null) {
+                    
                     sb.append("{");
                     sb.append("'titulo':");
                     StringBuilder append = sb.append("'"+(book.get(i).getTitulo())+"'");
@@ -1273,16 +1285,14 @@ public class GestionDatos {
         Libro libro = null;
         for (int j = 0; j < book.size(); j++) {
 
-            if (id != book.get(j).getIdlibro()) {
-                JOptionPane.showMessageDialog(null, "Libro no encontrado");
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Libro encontrado, obteniendo");
+            if (id == book.get(j).getIdlibro()) {
+//                JOptionPane.showMessageDialog(null, "Libro encontrado, obteniendo");
                 libro = book.get(j);
             }
         }
         return libro;
     }
+
 
     public static Sesión Buscarsesion(int id) {
         Sesión sesion = null;
