@@ -9,6 +9,7 @@ import Clases.Administrador;
 import Clases.Cliente;
 import Clases.GestionDatos;
 import Clases.Libro;
+import Clases.Reserva;
 import Clases.Reseña;
 import Clases.Usuario;
 import java.awt.List;
@@ -50,7 +51,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.*;
 
-
 /**
  *
  * @author jario
@@ -75,34 +75,39 @@ public class Inicio extends javax.swing.JFrame {
     private DefaultTableModel tmodel1; // Usuarios
     private DefaultTableModel tmodel2; //Reseñas
     private DefaultTableModel tmodel3; //top10
+    private DefaultTableModel tmodel4; //Reservas
     private String[] nomcolusuarios = {"Nombre", "ID", "Correo", "Celular"};
     private String[] tops1 = {"Id libro", "Titulo", "Califación Total"};
-    private String[] nomcolreseña = {"ID Reseña", "ID Usuario", "ID Libro", "Descripción","Calificación"};
+    private String[] nomcolreseña = {"ID Reseña", "ID Usuario", "ID Libro", "Descripción", "Calificación"};
     private String[] nomcols = {"ID", "Titulo", "Editorial", "Formato", "Autor", "Categoria", "Precio", "Idioma", "Reseña", "Número de paginas", "Fecha Publicacion", "Numero Edicion", "ISBN", "Encuadernacion"};
+    private String[] nomcolsr = {"ID Reserva", "ID Usuario", "ID Libro", "Fecha inicial", "Fecha final","Estado"};
     private DefaultComboBoxModel cmodel;
     private DefaultComboBoxModel cmodel1;
     private DefaultComboBoxModel cmodel2;
     private DefaultComboBoxModel cmodel3;
     TableRowSorter trs;
-  
+
     public Inicio() {
         initComponents();
         //Inicia ventana en el centro
         this.setLocationRelativeTo(null);
-         // Cargamos archivos planos
+        // Cargamos archivos planos
         GestionDatos.cargarlibros();
         GestionDatos.cargaradministrador();
         GestionDatos.cargarclientes();
         GestionDatos.cargarreseñas();
+        GestionDatos.cargarreservas();
         // Enviamos modelo de la tabla
         tmodel = new DefaultTableModel();
         tmodel1 = new DefaultTableModel();
         tmodel2 = new DefaultTableModel();
         tmodel3 = new DefaultTableModel();
+        tmodel4 = new DefaultTableModel();
         Tabla.setModel(tmodel);
         Tabla1.setModel(tmodel1);
         Tabla2.setModel(tmodel2);
         Tabla4.setModel(tmodel3);
+        Tabla5.setModel(tmodel4);
         s = new GestionDatos();
         //Se desactivan los botones para no permitir acceso
         ja.setVisible(false);
@@ -139,13 +144,13 @@ public class Inicio extends javax.swing.JFrame {
         jedicion.setModel(cmodel2);
         jencuadernacion.setModel(cmodel3);
         jencuadernacion1.setModel(cmodel3);
-        
+
         // Obtenemos el indice de los datos filtrados para mostrar mada imagen
-        Tabla.getSelectionModel().addListSelectionListener ( 
-        new ListSelectionListener () { 
-            public void valueChanged (ListSelectionEvent evento) { 
-                int x = Tabla.getSelectedRow(); 
-                if (x <0) { 
+        Tabla.getSelectionModel().addListSelectionListener(
+                new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent evento) {
+                int x = Tabla.getSelectedRow();
+                if (x < 0) {
                     try {
                         Libro b = GestionDatos.getlibro(x);
                         jTextArea2.setText(b.getTitulo());
@@ -155,8 +160,8 @@ public class Inicio extends javax.swing.JFrame {
                         jTextArea1.setText(b.getSinapsis());
                     } catch (Exception e) {
                     }
-                    
-                } else { 
+
+                } else {
                     try {
                         int y = Tabla.convertRowIndexToModel(x);
                         Libro b = GestionDatos.getlibro(y);
@@ -168,15 +173,14 @@ public class Inicio extends javax.swing.JFrame {
 
                     } catch (Exception e) {
                     }
-                    
-                } 
-            } 
 
-        } 
-);
+                }
+            }
+
+        }
+        );
         
-        
-  }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -362,6 +366,15 @@ public class Inicio extends javax.swing.JFrame {
         titulo7 = new javax.swing.JLabel();
         jPasswordField3 = new javax.swing.JPasswordField();
         Reseñas = new javax.swing.JDialog();
+        Ingreso7 = new javax.swing.JPanel();
+        jLabel28 = new javax.swing.JLabel();
+        usu7 = new javax.swing.JTextField();
+        jLabel69 = new javax.swing.JLabel();
+        jLabel70 = new javax.swing.JLabel();
+        jLabel71 = new javax.swing.JLabel();
+        jSeparator18 = new javax.swing.JSeparator();
+        jLabel72 = new javax.swing.JLabel();
+        jSeparator19 = new javax.swing.JSeparator();
         jPanel8 = new javax.swing.JPanel();
         descri = new javax.swing.JTextField();
         titulo2 = new javax.swing.JLabel();
@@ -374,30 +387,23 @@ public class Inicio extends javax.swing.JFrame {
         titulo6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla2 = new javax.swing.JTable();
-        jLabel9 = new javax.swing.JLabel();
         idlibro1 = new javax.swing.JTextField();
         jButton7 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         title = new javax.swing.JTextArea();
         jLabel12 = new javax.swing.JLabel();
-        Ingreso7 = new javax.swing.JPanel();
-        jLabel28 = new javax.swing.JLabel();
-        usu7 = new javax.swing.JTextField();
-        jLabel69 = new javax.swing.JLabel();
-        jLabel70 = new javax.swing.JLabel();
-        jLabel71 = new javax.swing.JLabel();
-        jSeparator18 = new javax.swing.JSeparator();
-        jLabel72 = new javax.swing.JLabel();
-        jSeparator19 = new javax.swing.JSeparator();
-        jProgressBar1 = new javax.swing.JProgressBar();
-        Reseñas1 = new javax.swing.JDialog();
+        jLabel14 = new javax.swing.JLabel();
+        jButton12 = new javax.swing.JButton();
+        jButton15 = new javax.swing.JButton();
+        Top10 = new javax.swing.JDialog();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         Tabla4 = new javax.swing.JTable();
         jScrollPane8 = new javax.swing.JScrollPane();
         title1 = new javax.swing.JTextArea();
         label12 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
         Ingreso8 = new javax.swing.JPanel();
         jLabel74 = new javax.swing.JLabel();
         usu8 = new javax.swing.JTextField();
@@ -406,6 +412,25 @@ public class Inicio extends javax.swing.JFrame {
         jLabel77 = new javax.swing.JLabel();
         jSeparator20 = new javax.swing.JSeparator();
         jSeparator21 = new javax.swing.JSeparator();
+        usu10 = new javax.swing.JTextField();
+        Reservas = new javax.swing.JDialog();
+        jPanel11 = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        Tabla5 = new javax.swing.JTable();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        title2 = new javax.swing.JTextArea();
+        label13 = new javax.swing.JLabel();
+        jButton13 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
+        jTextField5 = new javax.swing.JTextField();
+        Ingreso9 = new javax.swing.JPanel();
+        jLabel78 = new javax.swing.JLabel();
+        usu9 = new javax.swing.JTextField();
+        jLabel79 = new javax.swing.JLabel();
+        jLabel80 = new javax.swing.JLabel();
+        jLabel81 = new javax.swing.JLabel();
+        jSeparator22 = new javax.swing.JSeparator();
+        jSeparator23 = new javax.swing.JSeparator();
         Ingreso = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -579,7 +604,7 @@ public class Inicio extends javax.swing.JFrame {
         isbn5.setForeground(new java.awt.Color(102, 102, 102));
         isbn5.setText("Reservar");
 
-        jButton10.setText("go");
+        jButton10.setText("booking");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton10ActionPerformed(evt);
@@ -604,13 +629,11 @@ public class Inicio extends javax.swing.JFrame {
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(13, 13, 13)
                         .addComponent(isbn3)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(isbn5)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jButton10)))
-                .addGap(38, 38, 38))
+                    .addComponent(isbn5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton10, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(26, 26, 26))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1424,103 +1447,6 @@ public class Inicio extends javax.swing.JFrame {
         Reseñas.setResizable(false);
         Reseñas.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel8.add(descri, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 200, 180, -1));
-
-        titulo2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        titulo2.setForeground(new java.awt.Color(102, 102, 102));
-        titulo2.setText("ID libro");
-        jPanel8.add(titulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, -1, -1));
-        jPanel8.add(idreseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 180, -1));
-        jPanel8.add(idusuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 180, -1));
-
-        jLabel65.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jLabel65.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel65.setText("Descripción");
-        jPanel8.add(jLabel65, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, -1, -1));
-
-        id3.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        id3.setForeground(new java.awt.Color(102, 102, 102));
-        id3.setText("ID reseña");
-        jPanel8.add(id3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, -1, -1));
-
-        jLabel66.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jLabel66.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel66.setText("Calificación");
-        jPanel8.add(jLabel66, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, -1, -1));
-
-        puntaje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
-        jPanel8.add(puntaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 250, 180, -1));
-
-        titulo6.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        titulo6.setForeground(new java.awt.Color(102, 102, 102));
-        titulo6.setText("ID usuario");
-        jPanel8.add(titulo6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, -1, -1));
-
-        Tabla2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        Tabla2.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                Tabla2FocusGained(evt);
-            }
-        });
-        Tabla2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Tabla2MouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(Tabla2);
-
-        jPanel8.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, 740, 200));
-
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/insatisfaccion.png"))); // NOI18N
-        jPanel8.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, 290, 280));
-
-        idlibro1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                idlibro1KeyTyped(evt);
-            }
-        });
-        jPanel8.add(idlibro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 150, 180, -1));
-
-        jButton7.setText("Reseñas");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-        jPanel8.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 530, -1, -1));
-
-        jButton9.setText("Top 10");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
-        jPanel8.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 530, -1, -1));
-
-        title.setColumns(20);
-        title.setRows(5);
-        jScrollPane5.setViewportView(title);
-
-        jPanel8.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 520, 500, 50));
-
-        jLabel12.setFont(new java.awt.Font("Georgia", 2, 16)); // NOI18N
-        jLabel12.setText("Para obtener el id del libro que desea calificar puede seleccionarlo en la pestaña \"Visualizar Libro\"");
-        jPanel8.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 590, 720, -1));
-
-        Reseñas.getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 870, 640));
-
         Ingreso7.setBackground(new java.awt.Color(255, 255, 255));
         Ingreso7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         Ingreso7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1558,11 +1484,126 @@ public class Inicio extends javax.swing.JFrame {
         Ingreso7.add(jLabel72, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, -1, -1));
         Ingreso7.add(jSeparator19, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 270, 20));
 
-        Reseñas.getContentPane().add(Ingreso7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 640));
+        Reseñas.getContentPane().add(Ingreso7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 580));
 
-        Reseñas1.setUndecorated(true);
-        Reseñas1.setResizable(false);
-        Reseñas1.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel8.add(descri, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, 180, -1));
+
+        titulo2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        titulo2.setForeground(new java.awt.Color(102, 102, 102));
+        titulo2.setText("ID libro");
+        jPanel8.add(titulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, -1, -1));
+        jPanel8.add(idreseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 180, -1));
+        jPanel8.add(idusuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 180, -1));
+
+        jLabel65.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel65.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel65.setText("Descripción");
+        jPanel8.add(jLabel65, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, -1, -1));
+
+        id3.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        id3.setForeground(new java.awt.Color(102, 102, 102));
+        id3.setText("ID reseña");
+        jPanel8.add(id3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, -1, -1));
+
+        jLabel66.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel66.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel66.setText("Calificación");
+        jPanel8.add(jLabel66, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, -1, -1));
+
+        puntaje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+        jPanel8.add(puntaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, 180, -1));
+
+        titulo6.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        titulo6.setForeground(new java.awt.Color(102, 102, 102));
+        titulo6.setText("ID usuario");
+        jPanel8.add(titulo6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, -1, -1));
+
+        Tabla2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        Tabla2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                Tabla2FocusGained(evt);
+            }
+        });
+        Tabla2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tabla2MouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(Tabla2);
+
+        jPanel8.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, 740, 160));
+
+        idlibro1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                idlibro1AncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jPanel8.add(idlibro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 160, 180, -1));
+
+        jButton7.setText("Reseñas");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel8.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 490, -1, -1));
+
+        jButton9.setText("Top 10");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel8.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 490, -1, -1));
+
+        title.setColumns(20);
+        title.setRows(5);
+        jScrollPane5.setViewportView(title);
+
+        jPanel8.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 480, 390, 50));
+
+        jLabel12.setFont(new java.awt.Font("Georgia", 2, 16)); // NOI18N
+        jLabel12.setText("Para obtener el id del libro que desea calificar puede seleccionarlo en la pestaña ");
+        jPanel8.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 540, 580, 30));
+        jPanel8.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, 300, 280));
+
+        jButton12.setText("Reservas");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+        jPanel8.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 490, -1, -1));
+
+        jButton15.setText("Visualizar libro");
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
+        jPanel8.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 540, -1, -1));
+
+        Reseñas.getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 870, 580));
+
+        Top10.setUndecorated(true);
+        Top10.setResizable(false);
+        Top10.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1599,7 +1640,13 @@ public class Inicio extends javax.swing.JFrame {
         jPanel9.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 180, 360, 60));
         jPanel9.add(label12, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 250, 270, 250));
 
-        Reseñas1.getContentPane().add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 870, 640));
+        jTextField3.setFont(new java.awt.Font("Century Gothic", 1, 48)); // NOI18N
+        jTextField3.setForeground(new java.awt.Color(102, 102, 102));
+        jTextField3.setText("TOP 10 ");
+        jTextField3.setBorder(null);
+        jPanel9.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 170, 100));
+
+        Top10.getContentPane().add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 870, 640));
 
         Ingreso8.setBackground(new java.awt.Color(255, 255, 255));
         Ingreso8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -1629,7 +1676,105 @@ public class Inicio extends javax.swing.JFrame {
         Ingreso8.add(jSeparator20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 270, 20));
         Ingreso8.add(jSeparator21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 270, 20));
 
-        Reseñas1.getContentPane().add(Ingreso8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 640));
+        usu10.setForeground(new java.awt.Color(153, 153, 153));
+        usu10.setText("Ingrese Usuario ");
+        usu10.setBorder(null);
+        Ingreso8.add(usu10, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 350, 156, 36));
+
+        Top10.getContentPane().add(Ingreso8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 640));
+
+        Reservas.setUndecorated(true);
+        Reservas.setResizable(false);
+        Reservas.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel11.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Tabla5.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        Tabla5.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                Tabla5FocusGained(evt);
+            }
+        });
+        Tabla5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tabla5MouseClicked(evt);
+            }
+        });
+        jScrollPane7.setViewportView(Tabla5);
+
+        jPanel11.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 400, 360));
+
+        title2.setColumns(20);
+        title2.setRows(5);
+        jScrollPane9.setViewportView(title2);
+
+        jPanel11.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 140, 360, 60));
+        jPanel11.add(label13, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 210, 270, 280));
+
+        jButton13.setText("Terminar Reserva");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
+        jPanel11.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 540, -1, -1));
+
+        jButton14.setText("Mostrar Reservas");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+        jPanel11.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 540, -1, -1));
+
+        jTextField5.setFont(new java.awt.Font("Century Gothic", 1, 48)); // NOI18N
+        jTextField5.setForeground(new java.awt.Color(102, 102, 102));
+        jTextField5.setText("RESERVAS");
+        jTextField5.setBorder(null);
+        jPanel11.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 280, 100));
+
+        Reservas.getContentPane().add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 870, 600));
+
+        Ingreso9.setBackground(new java.awt.Color(255, 255, 255));
+        Ingreso9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        Ingreso9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel78.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/libros (1) - copia.png"))); // NOI18N
+        Ingreso9.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 210, 201));
+
+        usu9.setForeground(new java.awt.Color(153, 153, 153));
+        usu9.setBorder(null);
+        Ingreso9.add(usu9, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 350, 156, 36));
+
+        jLabel79.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/login (3).png"))); // NOI18N
+        Ingreso9.add(jLabel79, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 40, -1));
+
+        jLabel80.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/batras.png"))); // NOI18N
+        jLabel80.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel80MouseClicked(evt);
+            }
+        });
+        Ingreso9.add(jLabel80, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 440, 120, 90));
+
+        jLabel81.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icons8_Menu_32px_1.png"))); // NOI18N
+        jLabel81.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Ingreso9.add(jLabel81, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 40));
+        Ingreso9.add(jSeparator22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 270, 20));
+        Ingreso9.add(jSeparator23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 270, 20));
+
+        Reservas.getContentPane().add(Ingreso9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 600));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -1738,8 +1883,8 @@ public class Inicio extends javax.swing.JFrame {
         jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(568, 229, -1, -1));
 
         jLabel26.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel26.setText("Ingresar Reseña");
-        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 450, -1, -1));
+        jLabel26.setText("Reseñas y reservas");
+        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 450, -1, -1));
 
         jLabel27.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel27.setText("Visualizar Libro");
@@ -1858,7 +2003,7 @@ public class Inicio extends javax.swing.JFrame {
         jtextid.setText(String.valueOf(AleatorioIDlibro()));
         jtextid.setEditable(false);
     }//GEN-LAST:event_joMouseClicked
- 
+
     private void juMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_juMouseClicked
         // TODO add your handling code here:
         LibrosOut.setVisible(true);
@@ -1872,9 +2017,9 @@ public class Inicio extends javax.swing.JFrame {
 
                 }
         ));
-        
+
         tmodel.fireTableDataChanged();
-        
+
     }//GEN-LAST:event_juMouseClicked
 
     private long validaLong(String number) {
@@ -1897,50 +2042,52 @@ public class Inicio extends javax.swing.JFrame {
             return 0;
         }
     }
-    
-     private  static int AleatorioIDlibro() {
-            Random r = new Random();
-            int n = r. nextInt();
-            int r2;
-            if (n > 0) {
-              r2 = n;
-         }else{
-               r2 = n*(-1);
-            }
-            return r2;
+
+    private static int AleatorioIDlibro() {
+        Random r = new Random();
+        int n = r.nextInt();
+        int r2;
+        if (n > 0) {
+            r2 = n;
+        } else {
+            r2 = n * (-1);
+        }
+        return r2;
     }
-     private  static int AleatorioIDUsuario() {
-            Random r = new Random();
-            int n = r. nextInt();
-            int r2;
-            if (n > 0) {
-              r2 = n-1000;
-         }else{
-               r2 = ((n*(-1))-1000);
-            }
-            return r2;
+
+    private static int AleatorioIDUsuario() {
+        Random r = new Random();
+        int n = r.nextInt();
+        int r2;
+        if (n > 0) {
+            r2 = n - 1000;
+        } else {
+            r2 = ((n * (-1)) - 1000);
+        }
+        return r2;
     }
-      private  static int AleatorioIDreseña() {
-            Random r = new Random();
-            int n = r. nextInt();
-            int r2;
-            if (n > 0) {
-              r2 = n-1000;
-         }else{
-               r2 = ((n*(-1))-1000);
-            }
-            return r2;
+
+    private static int AleatorioIDreseña() {
+        Random r = new Random();
+        int n = r.nextInt();
+        int r2;
+        if (n > 0) {
+            r2 = n - 1000;
+        } else {
+            r2 = ((n * (-1)) - 1000);
+        }
+        return r2;
     }
- // Metodo para validar correo electronico 
-    
-    public boolean isEmail (String correo){
+    // Metodo para validar correo electronico 
+
+    public boolean isEmail(String correo) {
         Pattern pat = null;
         Matcher mat = null;
         pat = Pattern.compile("^[\\w\\-\\_\\+]+(\\.[\\w\\-\\_]+)*@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$");
         mat = pat.matcher(correo);
-        if(mat.find()){
+        if (mat.find()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -1948,7 +2095,6 @@ public class Inicio extends javax.swing.JFrame {
     private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
         // TODO add your handling code here:
 
-        
         int id = ConvertIntoNumeric(jtextid.getText());
         String titulo = jtexttitulo.getText();
         String editorial = jtexteditorial.getText();
@@ -1986,12 +2132,12 @@ public class Inicio extends javax.swing.JFrame {
         jedicion.setModel(cmodel2);
         jtextisbn.setText("");
         jencuadernacion.setModel(cmodel3);
-        
+
         boolean sw = GestionDatos.guardar4();
-        
-        if(sw){
+
+        if (sw) {
             JOptionPane.showMessageDialog(this, "Datos Almacenados Correctamente", "Guardado", JOptionPane.INFORMATION_MESSAGE);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Datos NO almacenados", "Guardado", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jLabel21MouseClicked
@@ -2051,13 +2197,13 @@ public class Inicio extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         int idd = ConvertIntoNumeric(jTextField4.getText());
-        String aux =jTextField4.getText();
+        String aux = jTextField4.getText();
         if (aux.equals("")) {
-             JOptionPane.showMessageDialog(rootPane, "Ingrese un id válido par eliminar libro");
-        }else{
+            JOptionPane.showMessageDialog(rootPane, "Ingrese un id válido par eliminar libro");
+        } else {
             GestionDatos.EliminarLibro(idd);
         }
-        
+
     }//GEN-LAST:event_jLabel36MouseClicked
 
     private void jtextid1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtextid1KeyTyped
@@ -2075,7 +2221,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jtextprecio1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtextprecio1KeyTyped
         // TODO add your handling code here:
-        
+
         char validar = evt.getKeyChar();
         if (jtextid.getText().length() >= 9) {
             evt.consume();
@@ -2100,7 +2246,7 @@ public class Inicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jtextpaginas1KeyTyped
 
-    
+
     private void jLabel39MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel39MouseClicked
         // TODO add your handling code here:
 
@@ -2127,24 +2273,24 @@ public class Inicio extends javax.swing.JFrame {
             String edicion = jedicion1.getSelectedItem().toString();
             String isbn = jtextisbn1.getText();
             String encuadernacion = jencuadernacion1.getSelectedItem().toString();
-            GestionDatos.modificarLibro(index,id, titulo, editorial, formato, autor, categoria, precio, idioma, reseña, paginas, fecha, edicion, isbn, encuadernacion);
+            GestionDatos.modificarLibro(index, id, titulo, editorial, formato, autor, categoria, precio, idioma, reseña, paginas, fecha, edicion, isbn, encuadernacion);
             JOptionPane.showMessageDialog(null, "Libro modificado");
-               jtextid1.setEditable(true);
-               jtextid1.setText("");
-             //Limpiamos las celdas de los datos ingresados
-                jtexttitulo1.setText("");
-                jtexteditorial1.setText("");
-                jformato1.setModel(cmodel1);
-                jtextautor1.setText("");
-                jcategoria1.setModel(cmodel);
-                jtextprecio1.setText("");
-                jtextidioma1.setText("");
-                jtextreseña1.setText("");
-                jtextpaginas1.setText("");
-                //            jdate.setDateFormatString("");
-                jedicion.setModel(cmodel2);
-                jtextisbn.setText("");
-                jencuadernacion1.setModel(cmodel3);
+            jtextid1.setEditable(true);
+            jtextid1.setText("");
+            //Limpiamos las celdas de los datos ingresados
+            jtexttitulo1.setText("");
+            jtexteditorial1.setText("");
+            jformato1.setModel(cmodel1);
+            jtextautor1.setText("");
+            jcategoria1.setModel(cmodel);
+            jtextprecio1.setText("");
+            jtextidioma1.setText("");
+            jtextreseña1.setText("");
+            jtextpaginas1.setText("");
+            //            jdate.setDateFormatString("");
+            jedicion.setModel(cmodel2);
+            jtextisbn.setText("");
+            jencuadernacion1.setModel(cmodel3);
         }
     }//GEN-LAST:event_jLabel39MouseClicked
 
@@ -2152,7 +2298,7 @@ public class Inicio extends javax.swing.JFrame {
         // TODO add your handling code here:
         LibrosUp.dispose();
     }//GEN-LAST:event_jLabel41MouseClicked
-    
+
     private void jLabel6InputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jLabel6InputMethodTextChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel6InputMethodTextChanged
@@ -2166,63 +2312,66 @@ public class Inicio extends javax.swing.JFrame {
         int sesion = AleatorioIDUsuario();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String fecha = dtf.format(LocalDateTime.now());
-        int aux  = 0;
-        
+        int aux = 0;
+
         for (int i = 0; i < lista.size(); i++) {
             if (correo.equals("") && (pass.equals(""))) {
                 JOptionPane.showMessageDialog(null, "Ingrese un usuario y clave validos");
-            } else if(!correo.contains(lista.get(i).getCorreo()) && !pass.contains(lista.get(i).getPass())) {
+            } else if (!correo.contains(lista.get(i).getCorreo()) && !pass.contains(lista.get(i).getPass())) {
                 JOptionPane.showMessageDialog(null, "Usuario y Contraseña incorectos");
-            } else if(correo.contains(lista.get(i).getCorreo()) && pass.contains(lista.get(i).getPass())) {
-                
-                if (lista.get(i)instanceof Administrador) {
-                int id = lista.get(i).getId();
-                String nombre = lista.get(i).getNombre();
-                JOptionPane.showMessageDialog(null, "Usuario Existente, Bienvenido " + nombre);
-                GestionDatos.inisiarSesion(sesion, id, fecha, "dd-MM-yyyy");
-                jLabel29.setText(String.valueOf(id));
-                ja.setVisible(true);
-                je.setVisible(true);
-                ji.setVisible(true);
-                jo.setVisible(true);
-                ju.setVisible(true);
-                jaa.setVisible(true);
-                jLabel67.setVisible(true);
-                bienvenido.setText(nombre);
-                usu1.setText(nombre);
-                usu2.setText(nombre);
-                usu3.setText(nombre);
-                usu4.setText(nombre);
-                usu5.setText(nombre);
-                usu6.setText(nombre);
-                usu7.setText(nombre);
-                idusuario.setText(String.valueOf(id));
-                break;
-                }else if (lista.get(i)instanceof Cliente) {
-                int id = lista.get(i).getId();
-                String nombre = lista.get(i).getNombre();
-                JOptionPane.showMessageDialog(null, "Usuario Existente, Bienvenido " + nombre);
-                GestionDatos.inisiarSesion(sesion, id, fecha, "dd-MM-yyyy");
-                ja.setVisible(false);
-                je.setVisible(false);
-                ji.setVisible(false);
-                jo.setVisible(false);
-                ju.setVisible(true);
-                jaa.setVisible(false);
-                jLabel67.setVisible(true);
-                bienvenido.setText(nombre);
-                jLabel29.setText(String.valueOf(id));
-                usu1.setText(nombre);
-                usu2.setText(nombre);
-                usu3.setText(nombre);
-                usu4.setText(nombre);
-                usu5.setText(nombre);
-                usu6.setText(nombre);
-                usu7.setText(nombre);
-                idusuario.setText(String.valueOf(id));
-                break;
+            } else if (correo.contains(lista.get(i).getCorreo()) && pass.contains(lista.get(i).getPass())) {
+
+                if (lista.get(i) instanceof Administrador) {
+                    int id = lista.get(i).getId();
+                    String nombre = lista.get(i).getNombre();
+                    JOptionPane.showMessageDialog(null, "Usuario Existente, Bienvenido " + nombre);
+                    GestionDatos.inisiarSesion(sesion, id, fecha, "dd-MM-yyyy");
+                    jLabel29.setText(String.valueOf(id));
+                    ja.setVisible(true);
+                    je.setVisible(true);
+                    ji.setVisible(true);
+                    jo.setVisible(true);
+                    ju.setVisible(true);
+                    jaa.setVisible(true);
+                    jLabel67.setVisible(true);
+                    bienvenido.setText(nombre);
+                    usu1.setText(nombre);
+                    usu2.setText(nombre);
+                    usu3.setText(nombre);
+                    usu4.setText(nombre);
+                    usu5.setText(nombre);
+                    usu6.setText(nombre);
+                    usu7.setText(nombre);
+                    usu8.setText(nombre);
+                    idusuario.setText(String.valueOf(id));
+                    break;
+                } else if (lista.get(i) instanceof Cliente) {
+                    int id = lista.get(i).getId();
+                    String nombre = lista.get(i).getNombre();
+                    JOptionPane.showMessageDialog(null, "Usuario Existente, Bienvenido " + nombre);
+                    GestionDatos.inisiarSesion(sesion, id, fecha, "dd-MM-yyyy");
+                    ja.setVisible(false);
+                    je.setVisible(false);
+                    ji.setVisible(false);
+                    jo.setVisible(false);
+                    ju.setVisible(true);
+                    jaa.setVisible(false);
+                    jLabel67.setVisible(true);
+                    bienvenido.setText(nombre);
+                    jLabel29.setText(String.valueOf(id));
+                    usu1.setText(nombre);
+                    usu2.setText(nombre);
+                    usu3.setText(nombre);
+                    usu4.setText(nombre);
+                    usu5.setText(nombre);
+                    usu6.setText(nombre);
+                    usu7.setText(nombre);
+                    usu8.setText(nombre);
+                    jButton13.setEnabled(false);
+                    idusuario.setText(String.valueOf(id));
+                    break;
                 }
-                
+
             }
         }
     }//GEN-LAST:event_jLabel6MouseClicked
@@ -2238,38 +2387,38 @@ public class Inicio extends javax.swing.JFrame {
         String direcciono = dire.getText();
         String[][] datos = GestionDatos.UsuarioCliente();
         String[][] datos2 = GestionDatos.UsuarioaAdmin();
-  
-             for (String[] dato : datos) {
+
+        for (String[] dato : datos) {
             if (mail.equals("")) {
                 JOptionPane.showMessageDialog(null, "Ingrese un correo valido");
             } else if (mail.equals(dato[2])) {
                 JOptionPane.showMessageDialog(null, "Correo existente, por favor ingrese otro");
             } else if (!mail.equals(dato[2])) {
-               for (String[] datos21 : datos2) {
-             if (mail.contains(datos21[2])) {
-                JOptionPane.showMessageDialog(null, "Correo existente, por favor ingrese otro");
-            } else if (!mail.contains(datos21[2])) {
-                GestionDatos.insertarCLiente(nombre, id, mail, celular, pass, direcciono);
-                JOptionPane.showMessageDialog(rootPane, "Usuario registrado");
-                name.setText("");
-                idusu.setText("");
-                correo.setText("");
-                celuco.setText("");
-                dire.setText("");
-                idusu.setText(String.valueOf(AleatorioIDUsuario()));
+                for (String[] datos21 : datos2) {
+                    if (mail.contains(datos21[2])) {
+                        JOptionPane.showMessageDialog(null, "Correo existente, por favor ingrese otro");
+                    } else if (!mail.contains(datos21[2])) {
+                        GestionDatos.insertarCLiente(nombre, id, mail, celular, pass, direcciono);
+                        JOptionPane.showMessageDialog(rootPane, "Usuario registrado");
+                        name.setText("");
+                        idusu.setText("");
+                        correo.setText("");
+                        celuco.setText("");
+                        dire.setText("");
+                        idusu.setText(String.valueOf(AleatorioIDUsuario()));
+                    }
+                }
             }
-           }
-         }
-      }
+        }
         boolean sw = GestionDatos.guardar2();
-        
-        if(sw){
+
+        if (sw) {
             JOptionPane.showMessageDialog(this, "Datos Almacenados Correctamente", "Guardado", JOptionPane.INFORMATION_MESSAGE);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Datos NO almacenados", "Guardado", JOptionPane.ERROR_MESSAGE);
         }
 
-       
+
     }//GEN-LAST:event_jLabel48MouseClicked
 
     private void jLabel50MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel50MouseClicked
@@ -2290,35 +2439,35 @@ public class Inicio extends javax.swing.JFrame {
         String password = jPasswordField3.getText();
         String[][] datos = GestionDatos.UsuarioaAdmin();
         String[][] datos2 = GestionDatos.UsuarioCliente();
-         
-             for (String[] dato : datos) {
+
+        for (String[] dato : datos) {
             if (mail.equals("")) {
                 JOptionPane.showMessageDialog(null, "Ingrese un correo valido");
             } else if (mail.equals(dato[2])) {
                 JOptionPane.showMessageDialog(null, "Correo existente, por favor ingrese otro");
             } else if (!mail.equals(dato[2])) {
-               for (String[] datos21 : datos2) {
-             if (mail.contains(datos21[2])) {
-                JOptionPane.showMessageDialog(null, "Correo existente, por favor ingrese otro");
-            } else if (!mail.contains(datos21[2])) {
-                GestionDatos.generico(nombre, id, mail, password);
-                JOptionPane.showMessageDialog(rootPane, "Usuario registrado");
-                name1.setText("");
-                correo1.setText("");
-                idusu1.setText(String.valueOf(AleatorioIDUsuario()));
+                for (String[] datos21 : datos2) {
+                    if (mail.contains(datos21[2])) {
+                        JOptionPane.showMessageDialog(null, "Correo existente, por favor ingrese otro");
+                    } else if (!mail.contains(datos21[2])) {
+                        GestionDatos.generico(nombre, id, mail, password);
+                        JOptionPane.showMessageDialog(rootPane, "Usuario registrado");
+                        name1.setText("");
+                        correo1.setText("");
+                        idusu1.setText(String.valueOf(AleatorioIDUsuario()));
+                    }
+                }
+
             }
-           }
-                
-         }
-      }
-              boolean sw = GestionDatos.guardar();
-        
-        if(sw){
+        }
+        boolean sw = GestionDatos.guardar();
+
+        if (sw) {
             JOptionPane.showMessageDialog(this, "Datos Almacenados Correctamente", "Guardado", JOptionPane.INFORMATION_MESSAGE);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Datos NO almacenados", "Guardado", JOptionPane.ERROR_MESSAGE);
         }
- 
+
     }//GEN-LAST:event_jLabel53MouseClicked
 
     private void jLabel55MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel55MouseClicked
@@ -2372,7 +2521,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jaMouseClicked
         // TODO add your handling code here:
-        
+
         Admin.setVisible(true);
         Admin.setSize(1126, 580);
         Admin.setModal(true);
@@ -2395,8 +2544,8 @@ public class Inicio extends javax.swing.JFrame {
         LibrosUp.setVisible(true);
         LibrosUp.setSize(1126, 580);
         LibrosUp.setLocationRelativeTo(null);
-        
-        
+
+
     }//GEN-LAST:event_jaaMouseClicked
 
     private void jiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jiMouseClicked
@@ -2412,7 +2561,7 @@ public class Inicio extends javax.swing.JFrame {
         Libro libro;
         long id = Long.valueOf(jtextid1.getText());
         libro = GestionDatos.BuscarLibro(id);
-       //Mandamos datos a modificar
+        //Mandamos datos a modificar
         jtexttitulo1.setText(libro.getTitulo());
         jtexteditorial1.setText(libro.getEditorial());
         cmodel1.setSelectedItem(libro.getFormato());
@@ -2429,13 +2578,13 @@ public class Inicio extends javax.swing.JFrame {
         String fecha2 = libro.getFecha();
         try {
             if (fecha2.contains("-")) {
-            Date fecha = dFormat.parse(fecha2);
-            jdate1.setDate(fecha);
-            }else{
-            Date fecha1 = dFormat1.parse(fecha2);
-            jdate1.setDate(fecha1);
+                Date fecha = dFormat.parse(fecha2);
+                jdate1.setDate(fecha);
+            } else {
+                Date fecha1 = dFormat1.parse(fecha2);
+                jdate1.setDate(fecha1);
             }
-            
+
         } catch (ParseException ex) {
             Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -2450,7 +2599,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jtextautor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtextautor1ActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jtextautor1ActionPerformed
 
     private void jLabel38MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel38MouseClicked
@@ -2460,48 +2609,47 @@ public class Inicio extends javax.swing.JFrame {
         int index = GestionDatos.BuscarIndice2(id);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String fechafin = dtf.format(LocalDateTime.now());
-        
+
         try {
-            
-        GestionDatos.modificarSesion(index, fechafin);
-        JOptionPane.showMessageDialog(null, "Adios, cerrando sesión");
-        ja.setVisible(false);
-        je.setVisible(false);
-        ji.setVisible(false);
-        jo.setVisible(false);
-        ju.setVisible(false);
-        jaa.setVisible(false);
-        jLabel67.setVisible(false);
-        bienvenido.setText("");
-        usu1.setText("");
-        usu2.setText("");
-        usu3.setText("");
-        usu4.setText("");
-        usu5.setText("");
-        usu6.setText("");
-        jTextField1.setText("Ingrese Usuario");
-        jPasswordField1.setText("||||||||||||||||");
-        jLabel29.setText("");
-        
-        
+
+            GestionDatos.modificarSesion(index, fechafin);
+            JOptionPane.showMessageDialog(null, "Adios, cerrando sesión");
+            ja.setVisible(false);
+            je.setVisible(false);
+            ji.setVisible(false);
+            jo.setVisible(false);
+            ju.setVisible(false);
+            jaa.setVisible(false);
+            jLabel67.setVisible(false);
+            bienvenido.setText("");
+            usu1.setText("");
+            usu2.setText("");
+            usu3.setText("");
+            usu4.setText("");
+            usu5.setText("");
+            usu6.setText("");
+            jTextField1.setText("Ingrese Usuario");
+            jPasswordField1.setText("||||||||||||||||");
+            jLabel29.setText("");
+
         } catch (IndexOutOfBoundsException ioobe) {
             System.out.println("No existe un carácter en esa posición");
         }
-        
+
     }//GEN-LAST:event_jLabel38MouseClicked
 
     private void correo1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_correo1FocusLost
         // TODO add your handling code here:
-         if(!isEmail(correo1.getText())){
+        if (!isEmail(correo1.getText())) {
             JOptionPane.showMessageDialog(null, "¡Debes validar el email!", "ATENCIÓN ADMINISTRADOR", JOptionPane.WARNING_MESSAGE);
             correo1.requestFocus();
         }
-        
+
     }//GEN-LAST:event_correo1FocusLost
 
     private void correoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_correoFocusLost
         // TODO add your handling code here:
-         if(!isEmail(correo.getText())){
+        if (!isEmail(correo.getText())) {
             JOptionPane.showMessageDialog(null, "¡Debes validar el email!", "ATENCIÓN ADMINISTRADOR", JOptionPane.WARNING_MESSAGE);
             correo.requestFocus();
         }
@@ -2509,8 +2657,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jLabel28MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel28MouseClicked
         // TODO add your handling code here:
-        
-        
+
         int id1 = ConvertIntoNumeric(idreseña.getText());
         int id2 = ConvertIntoNumeric(idusuario.getText());
         long id3 = Long.parseLong(idlibro1.getText());
@@ -2518,40 +2665,39 @@ public class Inicio extends javax.swing.JFrame {
         String descripcion = descri.getText();
         int calificacion = ConvertIntoNumeric(puntaje.getSelectedItem().toString());
         String[][] datos = GestionDatos.libreria();
-         
-             for (String[] dato : datos) {
+
+        for (String[] dato : datos) {
             if (idlibro1.equals("")) {
                 JOptionPane.showMessageDialog(null, "Ingrese un id válido valido");
             } else if (id.equals(dato[0])) {
                 JOptionPane.showMessageDialog(null, "Libro existente");
-                
-                        GestionDatos.reseña(id1, id2, id3, descripcion, calificacion);
-                        JOptionPane.showMessageDialog(null, "Reseña Ingresada");
-                        idreseña.setText(String.valueOf(AleatorioIDreseña()));
-                      
-                }
-           }
-            boolean sw = GestionDatos.guardar3();
-        
-        if(sw){
+
+                GestionDatos.reseña(id1, id2, id3, descripcion, calificacion);
+                JOptionPane.showMessageDialog(null, "Reseña Ingresada");
+                idreseña.setText(String.valueOf(AleatorioIDreseña()));
+
+            }
+        }
+        boolean sw = GestionDatos.guardar3();
+
+        if (sw) {
             JOptionPane.showMessageDialog(this, "Datos Almacenados Correctamente", "Guardado", JOptionPane.INFORMATION_MESSAGE);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Datos NO almacenados", "Guardado", JOptionPane.ERROR_MESSAGE);
         }
- 
-         Tabla2.setModel(new javax.swing.table.DefaultTableModel(
+
+        Tabla2.setModel(new javax.swing.table.DefaultTableModel(
                 GestionDatos.reseñas(),
                 new String[]{
-                    "ID Reseña", "ID Usuario", "ID Libro", "Descripción","Calificación"
+                    "ID Reseña", "ID Usuario", "ID Libro", "Descripción", "Calificación"
 
                 }
         ));
-   
-         
-         idlibro1.setText("");
-         descri.setText("");
-         
-        
+
+        idlibro1.setText("");
+        descri.setText("");
+
+
     }//GEN-LAST:event_jLabel28MouseClicked
 
     private void jLabel70MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel70MouseClicked
@@ -2580,10 +2726,6 @@ public class Inicio extends javax.swing.JFrame {
         // TODO add your handling code here:
         tmodel2.fireTableDataChanged();
     }//GEN-LAST:event_Tabla2FocusGained
-
-    private void idlibro1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_idlibro1KeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_idlibro1KeyTyped
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
@@ -2615,27 +2757,26 @@ public class Inicio extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
 
-        Reseñas1.setVisible(true);
-        Reseñas1.setSize(1126, 580);
-        Reseñas1.setLocationRelativeTo(null);
-        Map<Long,Integer> reseñas = GestionDatos.SumarReseña();
+        Top10.setVisible(true);
+        Top10.setSize(1126, 580);
+        Top10.setLocationRelativeTo(null);
+        Map<Long, Integer> reseñas = GestionDatos.SumarReseña();
         Object[][] data = new Object[reseñas.size()][2];
-        
-         Object[] a = reseñas.entrySet().toArray();
-                Arrays.sort(a, new Comparator() {
-                    public int compare(Object o1, Object o2) {
-                        return ((Map.Entry<Long, Integer>) o2).getValue()
-                                .compareTo(((Map.Entry<Long, Integer>) o1).getValue());
-                    }
-                });
-                int i =0;
-                for (Object e : a) {
-                    data[i][0] = ((Map.Entry<Long, Integer>) e).getKey();
-                    data[i][1] = ((Map.Entry<Long, Integer>) e).getValue();
-                    i++;
-                }
-              
-        
+
+        Object[] a = reseñas.entrySet().toArray();
+        Arrays.sort(a, new Comparator() {
+            public int compare(Object o1, Object o2) {
+                return ((Map.Entry<Long, Integer>) o2).getValue()
+                        .compareTo(((Map.Entry<Long, Integer>) o1).getValue());
+            }
+        });
+        int i = 0;
+        for (Object e : a) {
+            data[i][0] = ((Map.Entry<Long, Integer>) e).getKey();
+            data[i][1] = ((Map.Entry<Long, Integer>) e).getValue();
+            i++;
+        }
+
         try {
             Tabla4.setModel(new javax.swing.table.DefaultTableModel(
                     data,
@@ -2646,12 +2787,11 @@ public class Inicio extends javax.swing.JFrame {
 
         } catch (ArrayIndexOutOfBoundsException e) {
 
-            
             JOptionPane.showMessageDialog(rootPane, "Error al mostrar");
-            
+
         }
-        
-        
+
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void busqueda1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_busqueda1KeyTyped
@@ -2675,7 +2815,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-        
+
         Tabla2.setModel(new javax.swing.table.DefaultTableModel(
                 GestionDatos.reseñas(),
                 new String[]{
@@ -2696,47 +2836,46 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-     
-                int x = Tabla.getSelectedRow(); 
-                if (x <0) { 
-                    try {
-                        Libro b = GestionDatos.getlibro(x);
-                        long id = b.getIdlibro();
-                        idlibro1.setText(String.valueOf(id));
-                        Reseñas.setVisible(true);
-                        Reseñas.setSize(1126, 580);
-                        Reseñas.setLocationRelativeTo(null);
-                        idreseña.setText(String.valueOf(AleatorioIDreseña()));
-                        idreseña.setEnabled(false);
-                        idusuario.setEnabled(false);
-                    } catch (Exception e) {
-                    }
-                    
-                } else { 
-                    try {
-                        int y = Tabla.convertRowIndexToModel(x);
-                        Libro b = GestionDatos.getlibro(y);
-                        long id = b.getIdlibro();
-                        idlibro1.setText(String.valueOf(id));
-                        Reseñas.setVisible(true);
-                        Reseñas.setSize(1126, 580);
-                        Reseñas.setLocationRelativeTo(null);
-                        idreseña.setText(String.valueOf(AleatorioIDreseña()));
-                        idreseña.setEnabled(false);
-                        idusuario.setEnabled(false);
 
-                    } catch (Exception e) {
-                    }
-                    
-                } 
-             
+        int x = Tabla.getSelectedRow();
+        if (x < 0) {
+            try {
+                Libro b = GestionDatos.getlibro(x);
+                long id = b.getIdlibro();
+                idlibro1.setText(String.valueOf(id));
+                Reseñas.setVisible(true);
+                Reseñas.setSize(1126, 580);
+                Reseñas.setLocationRelativeTo(null);
+                idreseña.setText(String.valueOf(AleatorioIDreseña()));
+                idreseña.setEnabled(false);
+                idusuario.setEnabled(false);
+            } catch (Exception e) {
+            }
+
+        } else {
+            try {
+                int y = Tabla.convertRowIndexToModel(x);
+                Libro b = GestionDatos.getlibro(y);
+                long id = b.getIdlibro();
+                idlibro1.setText(String.valueOf(id));
+                Reseñas.setVisible(true);
+                Reseñas.setSize(1126, 580);
+                Reseñas.setLocationRelativeTo(null);
+                idreseña.setText(String.valueOf(AleatorioIDreseña()));
+                idreseña.setEnabled(false);
+                idusuario.setEnabled(false);
+
+            } catch (Exception e) {
+            }
+
+        }
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    
-    
+
     private void jComboBox20ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox20ItemStateChanged
         // TODO add your handling code here:
-        
+
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(((DefaultTableModel) Tabla.getModel()));
         sorter.setRowFilter(RowFilter.regexFilter(jComboBox20.getSelectedItem().toString()));
 
@@ -2759,25 +2898,25 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-        Reseñas1.setVisible(true);
-        Reseñas1.setSize(1126, 580);
-        Reseñas1.setLocationRelativeTo(null);
-        Map<Long,Integer> reseñas = GestionDatos.SumarReseña();
+        Top10.setVisible(true);
+        Top10.setSize(1126, 580);
+        Top10.setLocationRelativeTo(null);
+        Map<Long, Integer> reseñas = GestionDatos.SumarReseña();
         Object[][] data = new Object[reseñas.size()][2];
-        
-         Object[] a = reseñas.entrySet().toArray();
-                Arrays.sort(a, new Comparator() {
-                    public int compare(Object o1, Object o2) {
-                        return ((Map.Entry<Long, Integer>) o2).getValue()
-                                .compareTo(((Map.Entry<Long, Integer>) o1).getValue());
-                    }
-                });
-                int i =0;
-                for (Object e : a) {
-                    data[i][0] = ((Map.Entry<Long, Integer>) e).getKey();
-                    data[i][1] = ((Map.Entry<Long, Integer>) e).getValue();
-                    i++;
-                }
+
+        Object[] a = reseñas.entrySet().toArray();
+        Arrays.sort(a, new Comparator() {
+            public int compare(Object o1, Object o2) {
+                return ((Map.Entry<Long, Integer>) o2).getValue()
+                        .compareTo(((Map.Entry<Long, Integer>) o1).getValue());
+            }
+        });
+        int i = 0;
+        for (Object e : a) {
+            data[i][0] = ((Map.Entry<Long, Integer>) e).getKey();
+            data[i][1] = ((Map.Entry<Long, Integer>) e).getValue();
+            i++;
+        }
         try {
             Tabla4.setModel(new javax.swing.table.DefaultTableModel(
                     data,
@@ -2790,100 +2929,226 @@ public class Inicio extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(rootPane, "Error al mostrar");
         }
-        
+
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void Tabla2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla2MouseClicked
         // TODO add your handling code here:
-        
+
         DefaultTableModel modelo = (DefaultTableModel) Tabla2.getModel();
         Libro libro;
-         if (Tabla2.getSelectedRow() != -1) {
-            String codigo =  (String) modelo.getValueAt(Tabla2.getSelectedRow(), 2);
+        if (Tabla2.getSelectedRow() != -1) {
+            String codigo = (String) modelo.getValueAt(Tabla2.getSelectedRow(), 2);
             libro = GestionDatos.BuscarLibro(Long.valueOf(codigo));
             // Lo imprimimos en pantalla
 //             System.out.println(codigo);
-             title.setText(libro.getTitulo());
-//               String im = libro.getImagen().toString();
-//               ImageIcon ii = new ImageIcon(System.getProperty("user.dir") + "/ImagenLibro/" + im);
-//               label12.setIcon(ii);
-                 
+               title.setText(libro.getTitulo());
+               String im = libro.getImagen().toString();
+               ImageIcon ii = new ImageIcon(System.getProperty("user.dir") + "/ImagenLibro/" + im);
+               jLabel14.setIcon(ii);
+
         } else {
             JOptionPane.showMessageDialog(rootPane, "Seleccione un renglon primero");
         }
-    
+
     }//GEN-LAST:event_Tabla2MouseClicked
 
     private void Tabla4FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Tabla4FocusGained
         // TODO add your handling code here:
-          tmodel3.fireTableDataChanged();
+        tmodel3.fireTableDataChanged();
     }//GEN-LAST:event_Tabla4FocusGained
 
     private void Tabla4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla4MouseClicked
         // TODO add your handling code here:
-            
         DefaultTableModel modelo = (DefaultTableModel) Tabla4.getModel();
         Libro libro;
-         if (Tabla4.getSelectedRow() != -1) {
+        if (Tabla4.getSelectedRow() != -1) {
             long codigo = (long) modelo.getValueAt(Tabla4.getSelectedRow(), 0);
             libro = GestionDatos.BuscarLibro(codigo);
 
 //            // Lo imprimimos en pantalla
 //             System.out.println(libro.getTitulo());
-               title1.setText(libro.getTitulo());
-               String im = libro.getImagen().toString();
-               ImageIcon ii = new ImageIcon(System.getProperty("user.dir") + "/ImagenLibro/" + im);
-               label12.setIcon(ii);
-                 
+            title1.setText(libro.getTitulo());
+            String im = libro.getImagen().toString();
+            ImageIcon ii = new ImageIcon(System.getProperty("user.dir") + "/ImagenLibro/" + im);
+            label12.setIcon(ii);
+
         } else {
             JOptionPane.showMessageDialog(rootPane, "Seleccione un renglon primero");
         }
-    
     }//GEN-LAST:event_Tabla4MouseClicked
 
     private void jLabel76MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel76MouseClicked
         // TODO add your handling code here:
-        Reseñas1.dispose();;
+        Top10.dispose();;
     }//GEN-LAST:event_jLabel76MouseClicked
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
-          int x = Tabla.getSelectedRow(); 
-          DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-          String fecha = dtf.format(LocalDateTime.now());
-                if (x <0) { 
-                    try {
-                        Libro b = GestionDatos.getlibro(x);
-                        long id = b.getIdlibro();
-                        int idusu = ConvertIntoNumeric(jLabel29.getText());
-                        GestionDatos.reservar(idusu, id, fecha,"dd-MM-yyyy");
-                        JOptionPane.showMessageDialog(rootPane, "Reserva exitosa");
-                        
-                    } catch (Exception e) {
-                    }
-                    
-                } else { 
-                    try {
-                        int y = Tabla.convertRowIndexToModel(x);
-                        Libro b = GestionDatos.getlibro(y);
-                        long id = b.getIdlibro();
-                        int idusu = ConvertIntoNumeric(jLabel29.getText());
-                        GestionDatos.reservar(idusu, id, fecha,"dd-MM-yyyy");
-                        JOptionPane.showMessageDialog(rootPane, "Reserva exitosa");
-                        
-                    } catch (Exception e) {
-                    }
-                    
-                } 
-             
+        int x = Tabla.getSelectedRow();
+        int idreserva = AleatorioIDUsuario();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String fecha = dtf.format(LocalDateTime.now());
         
-        
+        if (x < 0) {
+            
+            try {
+                Libro b = GestionDatos.getlibro(x);
+                long id = b.getIdlibro();
+                int idusu = ConvertIntoNumeric(jLabel29.getText());
+                GestionDatos.reservar(idreserva,idusu, id, fecha, "dd-MM-yyyy",true);
+                JOptionPane.showMessageDialog(rootPane, "Reserva exitosa");
+            } catch (Exception e) {
+            }
+            boolean sw = GestionDatos.guardar5();
+                if (sw) {
+                    JOptionPane.showMessageDialog(this, "Datos Almacenados Correctamente", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Datos NO almacenados", "Guardado", JOptionPane.ERROR_MESSAGE);
+                }
+
+        } else {
+            try {
+                int y = Tabla.convertRowIndexToModel(x);
+                Libro b = GestionDatos.getlibro(y);
+                long id = b.getIdlibro();
+                int idusu = ConvertIntoNumeric(jLabel29.getText());
+                GestionDatos.reservar(idreserva,idusu, id, fecha, "dd-MM-yyyy",true);
+                JOptionPane.showMessageDialog(rootPane, "Reserva exitosa");
+                
+            } catch (Exception e) {
+            }
+            boolean sw = GestionDatos.guardar5();
+
+                if (sw) {
+                    JOptionPane.showMessageDialog(this, "Datos Almacenados Correctamente", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Datos NO almacenados", "Guardado", JOptionPane.ERROR_MESSAGE);
+                }
+        }
     }//GEN-LAST:event_jButton10ActionPerformed
 
-   
- 
-  
-    
+    private void Tabla5FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Tabla5FocusGained
+        // TODO add your handling code here:
+        String[][] datos = GestionDatos.reservas();
+         tmodel4.setDataVector(datos, nomcolsr);
+         tmodel4.fireTableDataChanged();
+    }//GEN-LAST:event_Tabla5FocusGained
+    public static Long convertToLong(Object o) {
+        String stringToConvert = String.valueOf(o);
+        Long convertedLong = Long.parseLong(stringToConvert);
+        return convertedLong;
+
+    }
+     public static int convertToLint(Object o) {
+        String stringToConvert = String.valueOf(o);
+        int convertedint = Integer.valueOf(stringToConvert);
+        return convertedint;
+
+    }
+    private void Tabla5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla5MouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel modelo = (DefaultTableModel) Tabla5.getModel();
+        Libro libro;
+        if (Tabla5.getSelectedRow() != -1) {
+            long codigo = convertToLong(modelo.getValueAt(Tabla5.getSelectedRow(), 2));
+            libro = GestionDatos.BuscarLibro(codigo);
+
+//            // Lo imprimimos en pantalla
+//             System.out.println(libro.getTitulo());
+            title2.setText(libro.getTitulo());
+            String im = libro.getImagen().toString();
+            ImageIcon ii = new ImageIcon(System.getProperty("user.dir") + "/ImagenLibro/" + im);
+            label13.setIcon(ii);
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Seleccione un renglon primero");
+        }
+    }//GEN-LAST:event_Tabla5MouseClicked
+
+    private void jLabel80MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel80MouseClicked
+        // TODO add your handling code here:
+        Reservas.dispose();
+    }//GEN-LAST:event_jLabel80MouseClicked
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        // TODO add your handling code here:
+        
+        Reservas.setVisible(true);
+        Reservas.setSize(1126, 580);
+        Reservas.setLocationRelativeTo(null);
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        // TODO add your handling code here:
+        
+          Tabla5.setModel(new javax.swing.table.DefaultTableModel(
+                GestionDatos.reservas(),
+                new String[]{
+                    "ID Reserva", "ID Usuario", "ID Libro", "Fecha inicial", "Fecha final","Estado"
+                }
+        ));
+        
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void idlibro1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_idlibro1AncestorAdded
+        // TODO add your handling code here:
+         if (idlibro1.getText().equals("")) {
+            
+            System.out.println("Sin datos");
+            
+        } else {
+            long codigo = Long.valueOf(idlibro1.getText());
+            Libro libro = GestionDatos.BuscarLibro(codigo);
+
+//            // Lo imprimimos en pantalla
+//             System.out.println(libro.getTitulo());
+            title.setText(libro.getTitulo());
+            String im = libro.getImagen().toString();
+            ImageIcon ii = new ImageIcon(System.getProperty("user.dir") + "/ImagenLibro/" + im);
+            jLabel14.setIcon(ii);
+        }
+    }//GEN-LAST:event_idlibro1AncestorAdded
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        // TODO add your handling code here:
+        LibrosOut.setVisible(true);
+        LibrosOut.setSize(1126, 580);
+        LibrosOut.setLocationRelativeTo(null);
+        String[][] datos = GestionDatos.libreria();
+        tmodel.setDataVector(datos, nomcols);
+        tmodel.fireTableDataChanged();
+        
+    }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelo = (DefaultTableModel) Tabla5.getModel();
+        Libro libro;
+        int i = Tabla5.getSelectedRow();
+        if (i != -1) {
+//            int codigo = convertToLint(modelo.getValueAt(Tabla5.getSelectedRow(), 0));
+//            GestionDatos.Buscarsesion(codigo);
+//            int index = GestionDatos.BuscarIndice3(codigo);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            String fechafin = dtf.format(LocalDateTime.now());
+            GestionDatos.finreserva(i, fechafin,false);
+            JOptionPane.showMessageDialog(rootPane, "Reserva Terminada");
+            String[][] datos = GestionDatos.reservas();
+            tmodel4.setDataVector(datos, nomcolsr);
+            tmodel4.fireTableDataChanged();
+//           
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Seleccione un renglon primero");
+        }
+        
+        
+        
+        
+    }//GEN-LAST:event_jButton13ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2915,7 +3180,7 @@ public class Inicio extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Inicio().setVisible(true);
-                
+
             }
         });
     }
@@ -2933,15 +3198,18 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPanel Ingreso6;
     private javax.swing.JPanel Ingreso7;
     private javax.swing.JPanel Ingreso8;
+    private javax.swing.JPanel Ingreso9;
     private javax.swing.JDialog LibrosIn;
     private javax.swing.JDialog LibrosOut;
     private javax.swing.JDialog LibrosUp;
+    private javax.swing.JDialog Reservas;
     private javax.swing.JDialog Reseñas;
-    private javax.swing.JDialog Reseñas1;
     private javax.swing.JTable Tabla;
     private javax.swing.JTable Tabla1;
     private javax.swing.JTable Tabla2;
     private javax.swing.JTable Tabla4;
+    private javax.swing.JTable Tabla5;
+    private javax.swing.JDialog Top10;
     private javax.swing.JLabel bienvenido;
     private javax.swing.JTextField busqueda1;
     private javax.swing.JLabel categoria;
@@ -2985,6 +3253,10 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel isbn5;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -2999,6 +3271,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -3064,10 +3337,14 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel76;
     private javax.swing.JLabel jLabel77;
+    private javax.swing.JLabel jLabel78;
+    private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel80;
+    private javax.swing.JLabel jLabel81;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -3079,7 +3356,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JPasswordField jPasswordField3;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane12;
@@ -3087,7 +3363,9 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
@@ -3101,6 +3379,8 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator20;
     private javax.swing.JSeparator jSeparator21;
+    private javax.swing.JSeparator jSeparator22;
+    private javax.swing.JSeparator jSeparator23;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
@@ -3110,7 +3390,9 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     private javax.swing.JLabel ja;
     private javax.swing.JLabel ja2;
     private javax.swing.JLabel jaa;
@@ -3153,6 +3435,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel ju2;
     private javax.swing.JLabel ju3;
     private javax.swing.JLabel label12;
+    private javax.swing.JLabel label13;
     private javax.swing.JTextField name;
     private javax.swing.JTextField name1;
     private javax.swing.JLabel paginas;
@@ -3165,6 +3448,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel reseña1;
     private javax.swing.JTextArea title;
     private javax.swing.JTextArea title1;
+    private javax.swing.JTextArea title2;
     private javax.swing.JLabel titulo;
     private javax.swing.JLabel titulo1;
     private javax.swing.JLabel titulo2;
@@ -3174,6 +3458,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel titulo6;
     private javax.swing.JLabel titulo7;
     private javax.swing.JTextField usu1;
+    private javax.swing.JTextField usu10;
     private javax.swing.JTextField usu2;
     private javax.swing.JTextField usu3;
     private javax.swing.JTextField usu4;
@@ -3181,5 +3466,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JTextField usu6;
     private javax.swing.JTextField usu7;
     private javax.swing.JTextField usu8;
+    private javax.swing.JTextField usu9;
     // End of variables declaration//GEN-END:variables
 }

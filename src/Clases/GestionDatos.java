@@ -38,6 +38,7 @@ public class GestionDatos {
     private static final String FILENAME3 = "cliente.txt";
     private static final String FILENAME4 = "reseñas.txt";
     private static final String FILENAME5 = "libro.txt";
+    private static final String FILENAME6 = "reservas.txt";
     private static ArrayList<Libro> book = new ArrayList<Libro>();
     private static ArrayList<Cliente> cliente = new ArrayList<Cliente>();
     private static ArrayList<Administrador> admi = new ArrayList<Administrador>();
@@ -866,6 +867,32 @@ public class GestionDatos {
         return true;
     }
 
+      public static boolean cargarreservas() {
+        File f = new File(FILENAME6);
+        FileReader reader;
+        try {
+            reader = new FileReader(f);
+            BufferedReader buffr = new BufferedReader(reader);
+            String registro;
+            while ((registro = buffr.readLine()) != null) {
+                String[] datos = registro.split(";");
+                //recontruir el objeto
+                int id = ConvertIntoNumeric(datos[0]);
+                int id2 = ConvertIntoNumeric(datos[1]);
+                long id3 = Long.valueOf(datos[2]);
+                String fechaini = datos[3];
+                String fechafin = datos[4];
+                boolean status = Boolean.valueOf(datos[5]);
+                GestionDatos.reservar(id, id2, id3, fechaini, fechafin, status);
+            }
+            buffr.close();
+            reader.close();
+        } catch (IOException ex) {
+            return false;
+        }
+        return true;
+    }
+    
     public static boolean guardar() {
 
         FileWriter writer = null;
@@ -957,6 +984,43 @@ public class GestionDatos {
                     sb.append(critica.get(i).getDescripcion());
                     sb.append(";");
                     sb.append(critica.get(i).getCalificación());
+                    buffw.write(sb.toString());
+                    buffw.newLine();
+                    sb.setLength(0);
+                }
+            }
+            buffw.close();
+            writer.close();
+        } catch (IOException ex) {
+            return false;
+        }
+        return true;
+
+    }
+    
+    public static boolean guardar5() {
+
+        FileWriter writer = null;
+        try {
+            File f = new File(FILENAME6);
+            writer = new FileWriter(f);
+            BufferedWriter buffw = new BufferedWriter(writer);
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < reserva.size(); i++) {
+                Reserva reser = reserva.get(i);
+                if (reser != null) {
+                    sb.append(reserva.get(i).getIdreserva());
+                    sb.append(";");
+                    sb.append(reserva.get(i).getIdusuario());
+                    sb.append(";");
+                    sb.append(reserva.get(i).getIdlibro());
+                    sb.append(";");
+                    sb.append(reserva.get(i).getFechaini());
+                    sb.append(";");
+                    sb.append(reserva.get(i).getFechafin());
+                    sb.append(";");
+                    sb.append(reserva.get(i).getEstado());
                     buffw.write(sb.toString());
                     buffw.newLine();
                     sb.setLength(0);
@@ -1096,9 +1160,11 @@ public class GestionDatos {
         
     }
     
-     public static void finreserva(int index, String fechafin) {
+     public static void finreserva(int index, String fechafin, boolean status) {
 
         reserva.get(index).setFechafin(fechafin);
+        reserva.get(index).setEstado(false);
+        GestionDatos.guardar5();
         
     }
 
@@ -1135,11 +1201,28 @@ public class GestionDatos {
         }
         return reseña;
     }
+    
+    public static String[][] reservas() {
+        String[][] reser = new String[reserva.size()][6];
+        for (int i = 0; i < reserva.size(); i++) {
+            reser[i][0] = String.valueOf(reserva.get(i).getIdreserva());
+            reser[i][1] = String.valueOf(reserva.get(i).getIdusuario());
+            reser[i][2] = String.valueOf(reserva.get(i).getIdlibro());
+            reser[i][3] = reserva.get(i).getFechaini();
+            reser[i][4] = reserva.get(i).getFechafin();
+            reser[i][5] = String.valueOf(reserva.get(i).getEstado());
+        }
+        return reser;
+    }
 
     public static ArrayList<Usuario> getList() {
         return users;
     }
 
+     public static ArrayList<Reserva> getListR() {
+        return reserva;
+    }
+    
     public static ArrayList<Libro> getListbook() {
         return book;
     }
@@ -1198,9 +1281,9 @@ public class GestionDatos {
         return sesion;
     }
 
-     public static Reserva reservar(int idusuario, long idlibro, String fechainicio, String fechafin) {
+     public static Reserva reservar(int idreserva,int idusuario, long idlibro, String fechainicio, String fechafin, boolean estado) {
 
-        Reserva r = new Reserva(idusuario, idlibro, fechainicio, fechafin);
+        Reserva r = new Reserva(idreserva,idusuario, idlibro, fechainicio, fechafin,estado);
         reserva.add(r);
         numreserva++;
 
@@ -1296,6 +1379,19 @@ public class GestionDatos {
         }
 
     }
+    
+    public static void EliminarReserva(int id) {
+        for (int j = 0; j < reserva.size(); j++) {
+            if (id != reserva.get(j).getIdlibro()) {
+                JOptionPane.showMessageDialog(null, "ID no encontrado");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "ID encontrado, eliminando...");
+                reserva.remove(j);
+            }
+        }
+
+    }
 
     public static Libro BuscarLibro(long id) {
         Libro libro = null;
@@ -1324,6 +1420,21 @@ public class GestionDatos {
         return sesion;
     }
 
+    public static Reserva Buscarreserva(int id) {
+        Reserva re = null;
+        for (int j = 0; j < reserva.size(); j++) {
+
+            if (id != reserva.get(j).getIdusuario()) {
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Hasta pronto");
+                re = reserva.get(j);
+            }
+        }
+        return re;
+    }
+
+    
     public static int BuscarIndice(int id) {
         Libro libro = null;
         int indice = 0;
@@ -1357,6 +1468,24 @@ public class GestionDatos {
         }
         return indice;
     }
+    
+    public static int BuscarIndice3(int id) {
+        Reserva re = null;
+        int indice = 0;
+
+        for (int j = 0; j < reserva.size(); j++) {
+
+            if (id != reserva.get(j).getIdusuario()) {
+                JOptionPane.showMessageDialog(null, "Indice no encontrado");
+
+            } else {
+                re = reserva.get(j);
+                indice = reserva.indexOf(re);
+            }
+        }
+        return indice;
+    }
+//   
 //   
     public static int getNumLibros() {
         return numLibros;

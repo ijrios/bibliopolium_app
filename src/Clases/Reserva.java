@@ -11,19 +11,31 @@ package Clases;
  */
 public class Reserva {
     
+    private int idreserva;
     private int idusuario;
     private long idlibro;
     private String fechaini;
     private String fechafin;
+    private boolean estado;
 
-    public Reserva(int idusuario, long idlibro, String fechaini, String fechafin) {
+    public Reserva() {
+    }
+
+    public Reserva(int idreserva, int idusuario, long idlibro, String fechaini, String fechafin, boolean estado) {
+        this.idreserva = idreserva;
         this.idusuario = idusuario;
         this.idlibro = idlibro;
         this.fechaini = fechaini;
         this.fechafin = fechafin;
+        this.estado = estado;
     }
 
-    public Reserva() {
+    public int getIdreserva() {
+        return idreserva;
+    }
+
+    public void setIdreserva(int idreserva) {
+        this.idreserva = idreserva;
     }
 
     public int getIdusuario() {
@@ -58,6 +70,12 @@ public class Reserva {
         this.fechafin = fechafin;
     }
 
-    
-    
+    public boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
 }
