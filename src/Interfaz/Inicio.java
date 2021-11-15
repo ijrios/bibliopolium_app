@@ -391,11 +391,13 @@ public class Inicio extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
-        title = new javax.swing.JTextArea();
+        titlee = new javax.swing.JTextArea();
         jLabel12 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jButton12 = new javax.swing.JButton();
         jButton15 = new javax.swing.JButton();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        title = new javax.swing.JTextArea();
         Top10 = new javax.swing.JDialog();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -1543,7 +1545,7 @@ public class Inicio extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(Tabla2);
 
-        jPanel8.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, 740, 160));
+        jPanel8.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, 740, 110));
 
         idlibro1.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
@@ -1562,7 +1564,7 @@ public class Inicio extends javax.swing.JFrame {
                 jButton7ActionPerformed(evt);
             }
         });
-        jPanel8.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 490, -1, -1));
+        jPanel8.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 530, -1, -1));
 
         jButton9.setText("Top 10");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
@@ -1570,18 +1572,18 @@ public class Inicio extends javax.swing.JFrame {
                 jButton9ActionPerformed(evt);
             }
         });
-        jPanel8.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 490, -1, -1));
+        jPanel8.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 530, -1, -1));
 
-        title.setColumns(20);
-        title.setRows(5);
-        jScrollPane5.setViewportView(title);
+        titlee.setColumns(20);
+        titlee.setRows(5);
+        jScrollPane5.setViewportView(titlee);
 
-        jPanel8.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 480, 390, 50));
+        jPanel8.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 430, 460, 50));
 
         jLabel12.setFont(new java.awt.Font("Georgia", 2, 16)); // NOI18N
         jLabel12.setText("Para obtener el id del libro que desea calificar puede seleccionarlo en la pestaña ");
-        jPanel8.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 540, 580, 30));
-        jPanel8.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, 300, 280));
+        jPanel8.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 490, 580, 30));
+        jPanel8.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 10, 300, 280));
 
         jButton12.setText("Reservas");
         jButton12.addActionListener(new java.awt.event.ActionListener() {
@@ -1589,7 +1591,7 @@ public class Inicio extends javax.swing.JFrame {
                 jButton12ActionPerformed(evt);
             }
         });
-        jPanel8.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 490, -1, -1));
+        jPanel8.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 530, -1, -1));
 
         jButton15.setText("Visualizar libro");
         jButton15.addActionListener(new java.awt.event.ActionListener() {
@@ -1597,7 +1599,13 @@ public class Inicio extends javax.swing.JFrame {
                 jButton15ActionPerformed(evt);
             }
         });
-        jPanel8.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 540, -1, -1));
+        jPanel8.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 490, -1, -1));
+
+        title.setColumns(20);
+        title.setRows(5);
+        jScrollPane10.setViewportView(title);
+
+        jPanel8.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 430, 270, 50));
 
         Reseñas.getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 870, 580));
 
@@ -2937,12 +2945,15 @@ public class Inicio extends javax.swing.JFrame {
 
         DefaultTableModel modelo = (DefaultTableModel) Tabla2.getModel();
         Libro libro;
+        Reseña reseña;
         if (Tabla2.getSelectedRow() != -1) {
             String codigo = (String) modelo.getValueAt(Tabla2.getSelectedRow(), 2);
             libro = GestionDatos.BuscarLibro(Long.valueOf(codigo));
+            reseña = GestionDatos.Buscarreseña(Long.valueOf(codigo));
             // Lo imprimimos en pantalla
 //             System.out.println(codigo);
                title.setText(libro.getTitulo());
+               titlee.setText(reseña.getDescripcion());
                String im = libro.getImagen().toString();
                ImageIcon ii = new ImageIcon(System.getProperty("user.dir") + "/ImagenLibro/" + im);
                jLabel14.setIcon(ii);
@@ -3103,7 +3114,7 @@ public class Inicio extends javax.swing.JFrame {
 
 //            // Lo imprimimos en pantalla
 //             System.out.println(libro.getTitulo());
-            title.setText(libro.getTitulo());
+            titlee.setText(libro.getTitulo());
             String im = libro.getImagen().toString();
             ImageIcon ii = new ImageIcon(System.getProperty("user.dir") + "/ImagenLibro/" + im);
             jLabel14.setIcon(ii);
@@ -3357,6 +3368,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JPasswordField jPasswordField3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane3;
@@ -3449,6 +3461,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JTextArea title;
     private javax.swing.JTextArea title1;
     private javax.swing.JTextArea title2;
+    private javax.swing.JTextArea titlee;
     private javax.swing.JLabel titulo;
     private javax.swing.JLabel titulo1;
     private javax.swing.JLabel titulo2;

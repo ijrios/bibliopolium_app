@@ -1434,6 +1434,20 @@ public class GestionDatos {
         return re;
     }
 
+    public static Reseña Buscarreseña(long id) {
+        Reseña re = null;
+        for (int j = 0; j < critica.size(); j++) {
+
+            if (id != critica.get(j).getIdusuario()) {
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Hasta pronto");
+                re = critica.get(j);
+            }
+        }
+        return re;
+    }
+
     
     public static int BuscarIndice(int id) {
         Libro libro = null;
