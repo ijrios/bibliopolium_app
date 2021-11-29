@@ -11,6 +11,7 @@ import Clases.GestionDatos;
 import Clases.Libro;
 import Clases.Reserva;
 import Clases.Reseña;
+import Clases.Servidor;
 import Clases.Usuario;
 import java.awt.List;
 import java.awt.event.KeyAdapter;
@@ -86,8 +87,9 @@ public class Inicio extends javax.swing.JFrame {
     private DefaultComboBoxModel cmodel2;
     private DefaultComboBoxModel cmodel3;
     TableRowSorter trs;
-
+    
     public Inicio() {
+        
         initComponents();
         //Inicia ventana en el centro
         this.setLocationRelativeTo(null);
@@ -3186,15 +3188,28 @@ public class Inicio extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+             try {
+            // TODO code application logic here
+            Servidor server = new Servidor();
+            server.init();
+            server.procesarConexion();
+            
+        } catch (IOException ex) {
+        }
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Inicio().setVisible(true);
+                
+             
+
 
             }
         });
-    }
+        
+          }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog Admin;
