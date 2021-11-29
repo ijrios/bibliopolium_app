@@ -89,7 +89,6 @@ public class Inicio extends javax.swing.JFrame {
     TableRowSorter trs;
     
     public Inicio() {
-        
         initComponents();
         //Inicia ventana en el centro
         this.setLocationRelativeTo(null);
@@ -3189,21 +3188,20 @@ public class Inicio extends javax.swing.JFrame {
         }
         //</editor-fold>
         
-             try {
-            // TODO code application logic here
-            Servidor server = new Servidor();
-            server.init();
-            server.procesarConexion();
-            
-        } catch (IOException ex) {
-        }
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Inicio().setVisible(true);
-                
-             
+
+                try {
+                    // TODO code application logic here
+                    Servidor server = new Servidor();
+                    server.init();
+                    server.procesarConexion();
+
+                } catch (IOException ex) {
+                }
 
 
             }

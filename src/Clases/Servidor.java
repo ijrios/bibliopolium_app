@@ -33,7 +33,7 @@ public class Servidor {
         socket = server.accept();
         input = socket.getInputStream();
         output = socket.getOutputStream();
-        enviarMsg("Hola mundo servidor>>>>>");
+        enviarMsg("Librería servidor>>>>>");
     }
     
     public void enviarMsg(String msg) throws IOException{
