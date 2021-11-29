@@ -5,12 +5,12 @@
             <url>src/Interfaz/Inicio.java</url>
             <bookmark id="2">
                 <name/>
-                <line>2687</line>
+                <line>2674</line>
                 <key/>
             </bookmark>
             <bookmark id="1">
                 <name/>
-                <line>2711</line>
+                <line>2698</line>
                 <key/>
             </bookmark>
         </file>
@@ -21,6 +21,7 @@
             <file>file:/C:/Users/jario/Documents/UDEM/Programación%20II%20(2021)/Librería_v2/src/Interfaz/Inicio.java</file>
             <file>file:/C:/Users/jario/Documents/UDEM/Programación%20II%20(2021)/Librería_v2/src/Clases/Reseña.java</file>
             <file>file:/C:/Users/jario/Documents/UDEM/Programación%20II%20(2021)/Librería_v2/src/Clases/GestionDatos.java</file>
+            <file>file:/C:/Users/jario/Documents/UDEM/Programación%20II%20(2021)/Librería_v2/src/Clases/Servidor.java</file>
         </group>
     </open-files>
 </project-private>

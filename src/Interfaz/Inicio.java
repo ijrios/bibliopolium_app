@@ -90,6 +90,8 @@ public class Inicio extends javax.swing.JFrame {
     
     public Inicio() {
         initComponents();
+         // Se inicia servidor, junto con el scritp del cliente
+//        iniciarServidor();
         //Inicia ventana en el centro
         this.setLocationRelativeTo(null);
         // Cargamos archivos planos
@@ -180,7 +182,7 @@ public class Inicio extends javax.swing.JFrame {
 
         }
         );
-        
+       
     }
 
     /**
@@ -3156,11 +3158,16 @@ public class Inicio extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Seleccione un renglon primero");
         }
         
-        
-        
-        
     }//GEN-LAST:event_jButton13ActionPerformed
-
+    public void iniciarServidor() {
+        try {
+            Servidor s = new Servidor();
+            s.init();
+            s.procesarConexion();
+        } catch (IOException ex) {
+            System.out.println("Error inicializando el servidor TCP ");
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -3193,20 +3200,10 @@ public class Inicio extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Inicio().setVisible(true);
-
-                try {
-                    // TODO code application logic here
-                    Servidor server = new Servidor();
-                    server.init();
-                    server.procesarConexion();
-
-                } catch (IOException ex) {
-                }
-
-
             }
         });
         
+          
           }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
