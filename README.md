@@ -66,7 +66,7 @@ En esta ventana también podrá eliminar el libro ingresado, o puede ver la tabl
 • Si selecciona la opción “modificar libros” se encontrará con la siguiente interfaz, está diseñada para la modificación de los libros ingresados, para obtener el libro que desee modificar debe ingresar el ID del libro que desea modificar y presionar el botón “Obtener”, el programa le traerá la información del libro a modificar, debe diligenciar la información de cada libro, el programa le irá mostrando el tipo de dato que debe ingresar en cada celda. Al finalizar presiona el botón que corresponde al libro.
 
 <p align="center">
-  <img src="img\9.PNG" width="600" title="hover text">
+  <img src="img\9.png" width="600" title="hover text">
 </p>
 
 ### INGRESO DE RESEÑAS
